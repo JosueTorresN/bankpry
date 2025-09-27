@@ -31,3 +31,11 @@
 
 .cards_carousel::-webkit-scrollbar { display: none; }
 .cards_carousel { -ms-overflow-style: none; scrollbar-width: none; }
+
+@media (min-width: 600px) {
+  .cards_carousel {
+    gap: calc(var(--spacing-base) * 1.5);
+    align-items: center;
+    justify-content: center;
+  }
+}

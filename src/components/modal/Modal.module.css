@@ -1,0 +1,6 @@
+.overlay { position: fixed; inset: 0; background-color: rgba(var(--background-color-rgb), 0.75); display: flex; justify-content: center; align-items: center; z-index: 50; }
+.content { background-color: var(--secondary-color); color: var(--font-color); padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 100%; max-width: 400px; border: 1px solid rgba(var(--font-color-rgb), 0.1); }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid rgba(var(--font-color-rgb), 0.1); padding-bottom: 0.75rem; }
+.title { font-size: 1.25rem; font-weight: 600; margin: 0; }
+.close_button { background: none; border: none; font-size: 2rem; line-height: 1; cursor: pointer; color: var(--font-color); opacity: 0.7; }
+.body { margin-top: 1rem; }

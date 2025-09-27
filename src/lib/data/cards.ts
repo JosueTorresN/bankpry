@@ -11,8 +11,8 @@ export const maskCardNumber = (cardNumber: string) => {
 };
 
 export const MOCK_CARDS: CreditCard[] = [
-  { id: 'CC001', type: 'Platinum', cardNumber: '4567890123456789', exp: '12/26', holder: 'JOHN DOE', currency: 'USD', limit: 15000.00, currentBalance: 4500.50 },
-  { id: 'CC002', type: 'Gold', cardNumber: '4111222233334444', exp: '07/28', holder: 'JOHN DOE', currency: 'CRC', limit: 3000000.00, currentBalance: 850750.00 },
+  { id: 'CC001', type: 'Platinum', cardNumber: '4567890123456789', exp: '12/26', holder: 'JOHN DOE', currency: 'USD', limit: 15000.00, currentBalance: 4500.50, pin: '1234',cvv: '123',},
+  { id: 'CC002', type: 'Gold', cardNumber: '4111222233334444', exp: '07/28', holder: 'JOHN DOE', currency: 'CRC', limit: 3000000.00, currentBalance: 850750.00, pin: '5678', cvv: '456',},
 ];
 
 export const MOCK_CARD_MOVEMENTS: CardMovement[] = [
