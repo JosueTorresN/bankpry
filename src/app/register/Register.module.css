@@ -1,0 +1,67 @@
+
+/* --- Layout Principal (AuthLayout) --- */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  gap: 3rem;
+}
+
+/* Las dos secciones principales: marca y formulario */
+.brand_section, .form_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.form_section {
+  max-width: 420px; /* Ancho máximo para el contenedor del form */
+}
+
+/* --- Estilos de la Marca (Logo y Título) --- */
+.logo_image {
+  flex-shrink: 0;
+}
+
+.app_title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--font-color);
+}
+
+.app_description {
+  font-size: 1.125rem;
+  max-width: 350px;
+  color: var(--font-color);
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* === ESTILOS PARA PANTALLAS GRANDES === */
+@media (min-width: 992px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 5rem;
+  }
+
+  .brand_section {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .app_title {
+    font-size: 3.5rem;
+  }
+
+  .app_description {
+    max-width: 450px;
+  }
+}
