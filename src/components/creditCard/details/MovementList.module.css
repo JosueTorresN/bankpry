@@ -1,0 +1,11 @@
+.list_title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.75rem; padding: 0 1rem; }
+.list { list-style: none; padding: 0; margin: 0; background-color: var(--secondary-color); border-radius: 0.5rem; }
+.item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(var(--font-color-rgb), 0.1); }
+.item:last-child { border-bottom: none; }
+.item_details { flex: 1; min-width: 0; }
+.item_description { font-size: 0.875rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item_meta { font-size: 0.75rem; color: rgba(var(--font-color-rgb), 0.7); }
+.item_amount { font-weight: 600; margin-left: 0.5rem; }
+.amount_purchase { color: var(--accent-danger); }
+.amount_payment { color: var(--success-color, #22c55e); } /* Define --success-color en tu :root */
+.no_results { text-align: center; padding: 2rem; background-color: var(--secondary-color); border-radius: 0.5rem; opacity: 0.8; }
