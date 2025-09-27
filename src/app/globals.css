@@ -4,7 +4,8 @@
   --primary-color: #4D61FF;
   --secondary-color: #54595F;
   --background-color: #000000;
-  --accent-color: #61CE70;
+  --accent-color: #efb810;
+  --accent-danger: #8A0303;
   --font-color: #FFFFFF;
   --font-color-secondary: #000000;
   --font-family: 'Helvetica Neue', sans-serif;
@@ -19,11 +20,6 @@ body {
   background-color: var(--background-color);
   margin: 0;
   padding: 0;
-}
-
-.border-light {
-  border-color: var(--font-color);
-  border-width: 1px;
 }
 
 /* Responsive card container */

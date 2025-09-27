@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import Link from "next/link";
 import styles from "./Login.module.css";
+import Alert from '@/components/alert/alert';
 
 // 1. Recibimos 'onLoginSuccess' como una prop
 interface LoginProps {
@@ -47,12 +48,13 @@ export default function Login({ onLoginSuccess }: LoginProps) {
       <h1 className={styles.login_title}>Iniciar sesión</h1>
 
       {/* Mensaje de error que solo aparece si hay un error */}
-      {error && <p className={styles.error_message}>{error}</p>}
+      {error && <Alert message={error} type="error" />}
 
       <label htmlFor="username" className={styles.sr_only}>Usuario</label>
       <input
         type="text"
         id="username"
+        className={styles.input_field}
         placeholder="Usuario"
         // 6. Controlamos el valor del input con el estado
         value={username}
@@ -64,6 +66,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
       <input
         type="password"
         id="password"
+        className={styles.input_field}
         placeholder="Contraseña"
         // 7. Controlamos el valor del input con el estado
         value={password}

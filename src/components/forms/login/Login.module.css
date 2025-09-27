@@ -45,7 +45,7 @@
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     cursor: pointer;
-    border: 1px solid transparent var(--font-color);
+    border: 1px solid var(--accent-color);
     border-radius: 0.375rem;
 }
 
@@ -60,28 +60,9 @@
     text-decoration: underline;
 }
 
-/* Añade esto al final de tu archivo Login.module.css */
-
-.error_message {
-    color: #e53e3e; /* Un color rojo para el error */
-    background-color: #fed7d7; /* Un fondo rojo claro */
-    border: 1px solid #e53e3e;
-    padding: 0.75rem;
+.input_field {
+    border-color: var(--font-color);
+    border-width: 1px;
     border-radius: 0.375rem;
-    text-align: center;
-    font-size: 0.875rem;
-}
-
-.welcome_container {
-    text-align: center;
-}
-
-.logout_button {
-    margin-top: 1.5rem;
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 0.375rem;
-    border: 1px solid;
-    /* Puedes añadir más estilos para que coincida con tu tema */
+    padding: 0.5rem;
 }
