@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { MOCK_CARDS, MOCK_CARD_MOVEMENTS, CardMovement, CardMovementType, Currency, CreditCard, maskCardNumber } from '@/props/creditCard';
 import { useParams } from 'next/navigation';
-
+import PinConsultModal from '@/components/modalConsults/PinConsultModal';
 // Helper para formatear moneda (reutilizado)
 const formatCurrency = (amount: number, currency: Currency) => {
   const locale = currency === 'CRC' ? 'es-CR' : 'en-US';
@@ -53,6 +53,7 @@ const CardDetailPage: React.FC = () => {
   // 1. Obtener la tarjeta seleccionada
   const card = MOCK_CARDS.find(c => c.id === cardId);
   const allMovements = MOCK_CARD_MOVEMENTS.filter(m => m.card_id === cardId);
+  const [isPinModalOpen, setIsPinModalOpen] = useState(false);
 
   // Manejo de estado: Tarjeta no encontrada
   if (!card) {
@@ -122,6 +123,15 @@ const CardDetailPage: React.FC = () => {
         </div>
       </div>
 
+      {/* 3. Botón "Consultar PIN" */}
+        <button
+             onClick={() => setIsPinModalOpen(true)}
+             className="w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition"
+         >
+             Consultar PIN
+         </button>
+       
+
       {/* Área de Filtros */}
       <div className="p-4 bg-white border-b border-gray-100">
         <h2 className="text-lg font-semibold mb-3">Filtros de Movimientos</h2>
@@ -151,6 +161,15 @@ const CardDetailPage: React.FC = () => {
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-3 text-gray-800">Transacciones</h2>
         
+       {/* 4. Componente Modal de Consulta de PIN */}
+       {card && (
+         <PinConsultModal 
+           card={card} 
+           isOpen={isPinModalOpen} 
+           onClose={() => setIsPinModalOpen(false)} 
+         />
+       )}
+
         {/* Manejo de estado: Error */}
         {error && (
             <div className="text-center p-6 bg-red-50 border border-red-200 rounded-md">
@@ -176,3 +195,46 @@ const CardDetailPage: React.FC = () => {
 };
 
 export default CardDetailPage;
+
+
+//   return (
+//     <div className="min-h-screen bg-gray-50">
+      
+// {/* Encabezado y Resumen de Límite */}
+//       <div className="sticky top-0 bg-white p-4 shadow-md z-10 border-b border-gray-200">
+//         <h1 className="text-xl font-bold text-gray-800 mb-1">{card.type} Card</h1>
+//         <p className="text-sm text-gray-500 mb-3">
+//             {maskCardNumber(card.cardNumber)} | {card.holder}
+//         </p>
+        
+//         {/* Resumen de Saldo */}
+//         <div className="grid grid-cols-2 gap-3 p-3 bg-blue-50 rounded-lg text-center mb-3"> {/* Agregamos margen inferior */}
+//           {/* ... (Bloques de Límite Disponible y Consumo Actual) */}
+//         </div>
+
+//         {/* 3. Botón "Consultar PIN" */}
+//         <button
+//             onClick={() => setIsPinModalOpen(true)}
+//             className="w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition"
+//         >
+//             Consultar PIN
+//         </button>
+//       </div>
+
+//       {/* Área de Filtros */}
+//       {/* ... (Contenido de filtros) */}
+      
+//       {/* Lista de Movimientos */}
+//       {/* ... (Contenido de lista de movimientos) */}
+      
+//       {/* 4. Componente Modal de Consulta de PIN */}
+//       {card && (
+//         <PinConsultModal 
+//           card={card} 
+//           isOpen={isPinModalOpen} 
+//           onClose={() => setIsPinModalOpen(false)} 
+//         />
+//       )}
+//     </div>
+//   );
+// };
