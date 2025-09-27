@@ -161,7 +161,7 @@ const CardDetailPage: React.FC = () => {
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-3 text-gray-800">Transacciones</h2>
         
-       {/* 4. Componente Modal de Consulta de PIN */}
+       {/* 4. Componente Modal de Consulta de PIN el codigo de consulta es 123456 para ambas tarjetas*/}
        {card && (
          <PinConsultModal 
            card={card} 
@@ -195,46 +195,3 @@ const CardDetailPage: React.FC = () => {
 };
 
 export default CardDetailPage;
-
-
-//   return (
-//     <div className="min-h-screen bg-gray-50">
-      
-// {/* Encabezado y Resumen de Límite */}
-//       <div className="sticky top-0 bg-white p-4 shadow-md z-10 border-b border-gray-200">
-//         <h1 className="text-xl font-bold text-gray-800 mb-1">{card.type} Card</h1>
-//         <p className="text-sm text-gray-500 mb-3">
-//             {maskCardNumber(card.cardNumber)} | {card.holder}
-//         </p>
-        
-//         {/* Resumen de Saldo */}
-//         <div className="grid grid-cols-2 gap-3 p-3 bg-blue-50 rounded-lg text-center mb-3"> {/* Agregamos margen inferior */}
-//           {/* ... (Bloques de Límite Disponible y Consumo Actual) */}
-//         </div>
-
-//         {/* 3. Botón "Consultar PIN" */}
-//         <button
-//             onClick={() => setIsPinModalOpen(true)}
-//             className="w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition"
-//         >
-//             Consultar PIN
-//         </button>
-//       </div>
-
-//       {/* Área de Filtros */}
-//       {/* ... (Contenido de filtros) */}
-      
-//       {/* Lista de Movimientos */}
-//       {/* ... (Contenido de lista de movimientos) */}
-      
-//       {/* 4. Componente Modal de Consulta de PIN */}
-//       {card && (
-//         <PinConsultModal 
-//           card={card} 
-//           isOpen={isPinModalOpen} 
-//           onClose={() => setIsPinModalOpen(false)} 
-//         />
-//       )}
-//     </div>
-//   );
-// };
