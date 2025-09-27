@@ -5,7 +5,7 @@
 /* Contenedor principal de la página */
 .container {
   display: flex;
-  flex-direction: column; /* Apila la sección de bienvenida y el login verticalmente */
+  flex-direction: column-reverse; /* Apila la sección de bienvenida y el login verticalmente */
   align-items: center; /* Centra todo horizontalmente */
   justify-content: center; /* Centra el contenido en el medio de la pantalla */
   min-height: 100vh; /* Ocupa al menos toda la altura de la pantalla */
@@ -48,16 +48,16 @@
 /* Usamos 992px como punto de quiebre para un layout de escritorio */
 @media (min-width: 992px) {
   .container {
-    flex-direction: row; /* Cambia a un layout horizontal (lado a lado) */
+    flex-direction: column; /* Cambia a un layout horizontal (lado a lado) */
     justify-content: space-evenly; /* Distribuye el espacio entre los dos elementos */
     gap: 5rem; /* Aumenta el espacio entre la info y el login */
   }
 
   /* Alineamos el texto de la sección de bienvenida a la izquierda */
-  .container > div:first-child {
+  /* .container > div:first-child {
     align-items: flex-start;
     text-align: left;
-  }
+  } */
 
   .app_title {
     font-size: 3.5rem; /* Hacemos el título más grande en escritorio */
