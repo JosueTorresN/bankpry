@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useAccounts } from '@/lib/hooks/useAccounts';
 import { TransferFormValues } from '@/lib/validations/transferSchema';
@@ -13,6 +14,8 @@ import styles from './TransfersPage.module.css';
 type PageState = 'FORM' | 'CONFIRMING' | 'RECEIPT';
 
 export default function TransfersPage() {
+  const t = useTranslations('Transfers'); 
+
   const { accounts, loading } = useAccounts();
   const [pageState, setPageState] = useState<PageState>('FORM');
   const [transferType, setTransferType] = useState<'PROPIAS' | 'TERCEROS'>('PROPIAS');
@@ -56,7 +59,7 @@ export default function TransfersPage() {
         <TransferReceipt receipt={receiptData} onNewTransfer={resetFlow} />
       ) : (
         <>
-          <h1 className={styles.page_title}>Transferencias</h1>
+          <h1 className={styles.page_title}>{t('page_title')}</h1>
           <TransferTypeSwitcher currentType={transferType} onTypeChange={setTransferType} />
           <TransferForm 
             userAccounts={accounts} 

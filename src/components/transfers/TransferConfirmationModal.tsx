@@ -6,7 +6,7 @@ import { formatCurrency } from '@/lib/data/accounts';
 import { MOCK_ACCOUNTS } from '@/lib/data/accounts';
 import { Account } from '@/lib/types/accounts';
 import styles from './Transfers.module.css';
-
+import { useTranslations } from 'next-intl';
 type Props = {
   isOpen: boolean;
   onClose: () => void;
@@ -17,6 +17,7 @@ type Props = {
 };
 
 export default function TransferConfirmationModal({ isOpen, onClose, onConfirm, isSubmitting, data, sourceAccount }: Props) {
+   const t = useTranslations('Transfers');
   if (!sourceAccount) return null;
 
   const targetAlias = data.transferType === 'PROPIAS' 
@@ -24,34 +25,34 @@ export default function TransferConfirmationModal({ isOpen, onClose, onConfirm, 
     : data.targetOwner;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Confirmar Transferencia">
+    <Modal isOpen={isOpen} onClose={onClose} title={t('confirmation_modal_title')}>
       <div className={styles.confirmation_details}>
         <div className={styles.detail_item}>
-          <span>Desde</span>
+          <span>{t('label_from')}</span>
           <p>{sourceAccount.alias} ({sourceAccount.currency})</p>
         </div>
         <div className={styles.detail_item}>
-          <span>Hacia</span>
+          <span>{t('label_to')}</span>
           <p>{targetAlias}</p>
           <small>{data.targetAccountId}</small>
         </div>
         <div className={styles.detail_item_amount}>
-          <span>Monto</span>
+          <span>{t('label_amount')}</span>
           <p>{formatCurrency(data.amount, sourceAccount.currency)}</p>
         </div>
         {data.description && (
           <div className={styles.detail_item}>
-            <span>Descripción</span>
+            <span>{t('label_description')}</span>
             <p>{data.description}</p>
           </div>
         )}
       </div>
       <div className={styles.confirmation_actions}>
         <Button onClick={onClose} variant="secondary" disabled={isSubmitting}>
-          Cancelar
+          {t('cancel_button')}
         </Button>
         <Button onClick={onConfirm} disabled={isSubmitting}>
-          {isSubmitting ? <LoadingSpinner /> : 'Confirmar y Enviar'}
+          {isSubmitting ? <LoadingSpinner /> : t('confirm_send_button')}
         </Button>
       </div>
     </Modal>

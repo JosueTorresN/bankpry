@@ -2,9 +2,10 @@
 import { Movement } from '@/lib/types/accounts';
 import { formatCurrency } from '@/lib/data/accounts';
 import styles from './MovementList.module.css';
-
+import { useTranslations } from 'next-intl';
 // Sub-componente para un solo item, ahora es un <li>
 function MovementItem({ movement }: { movement: Movement }) {
+ 
   const isCredit = movement.type === 'CREDITO';
   const sign = isCredit ? '+' : '-';
   const amountClass = isCredit ? styles.amount_credit : styles.amount_debit;
@@ -25,13 +26,14 @@ function MovementItem({ movement }: { movement: Movement }) {
 
 // Componente principal de la lista
 export default function MovementList({ movements }: { movements: Movement[] }) {
+  const t = useTranslations('MovementList');
   if (movements.length === 0) {
-    return <p className={styles.no_results}>No se encontraron movimientos.</p>;
+    return <p className={styles.no_results}>{t('no_movements_message')}.</p>;
   }
 
   return (
     <section aria-labelledby="transactions-heading">
-      <h2 id="transactions-heading" className={styles.list_title}>Historial</h2>
+      <h2 id="transactions-heading" className={styles.list_title}>{t('list_title')}</h2>
       <ul className={styles.list}>
         {movements.map(movement => <MovementItem key={movement.id} movement={movement} />)}
       </ul>

@@ -7,12 +7,13 @@ import { registerSchema, RegisterFormValues } from '@/lib/validations/registerSc
 import InputField from '@/components/forms/inputs/inputField';
 import IdTypeSelect from '@/components/select/IdTypeSelect';
 import styles from './RegisterForm.module.css';
-
+import { useTranslations } from 'next-intl';
 type RegisterFormProps = {
   onRegisterSuccess: (data: RegisterFormValues) => void;
 };
 
 export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
+  const t = useTranslations('Auth');
   const [showTerms, setShowTerms] = useState(false);
   const {
     register,
@@ -33,29 +34,29 @@ export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
   return (
     <>
       <form className={styles.register_form} onSubmit={handleSubmit(onSubmit)} noValidate>
-        <h2 className={styles.form_title}>Registro de Usuario</h2>
+        <h2 className={styles.form_title}>{t('register_form_title')}</h2>
         
         <IdTypeSelect register={register} error={errors.idType?.message} />
         
-        <InputField id="idNumber" label="Número de Identificación" registration={register('idNumber')} error={errors.idNumber?.message} />
-        <InputField id="username" label="Username" registration={register('username')} error={errors.username?.message} />
-        <InputField id="fullName" label="Nombre Completo" registration={register('fullName')} error={errors.fullName?.message} />
-        <InputField id="birthDate" label="Fecha de Nacimiento" type="date" registration={register('birthDate')} error={errors.birthDate?.message} />
-        <InputField id="email" label="Correo Electrónico" type="email" registration={register('email')} error={errors.email?.message} />
-        <InputField id="phone" label="Teléfono (Opcional)" type="tel" placeholder="+506 ####-####" registration={register('phone')} error={errors.phone?.message} />
-        <InputField id="password" label="Contraseña" type="password" registration={register('password')} error={errors.password?.message} />
-        <InputField id="confirmPassword" label="Confirmar Contraseña" type="password" registration={register('confirmPassword')} error={errors.confirmPassword?.message} />
+        <InputField id="idNumber" label={t('id_number_label')} registration={register('idNumber')} error={errors.idNumber?.message} />
+        <InputField id="username" label={t('username_label')} registration={register('username')} error={errors.username?.message} />
+        <InputField id="fullName" label={t('full_name_label')} registration={register('fullName')} error={errors.fullName?.message} />
+        <InputField id="birthDate" label={t('birth_date_label')} type="date" registration={register('birthDate')} error={errors.birthDate?.message} />
+        <InputField id="email" label={t('email_label')} type="email" registration={register('email')} error={errors.email?.message} />
+        <InputField id="phone" label={t('phone_label_optional')} type="tel" placeholder="+506 ####-####" registration={register('phone')} error={errors.phone?.message} />
+        <InputField id="password" label={t('password_label')} type="password" registration={register('password')} error={errors.password?.message} />
+        <InputField id="confirmPassword" label={t('confirm_password_label')} type="password" registration={register('confirmPassword')} error={errors.confirmPassword?.message} />
 
         <div className={styles.terms_container}>
           <input type="checkbox" id="acceptTerms" {...register('acceptTerms')} className={styles.checkbox} />
           <label htmlFor="acceptTerms" className={styles.label}>
-            Acepto los <button type="button" onClick={() => setShowTerms(true)} className={styles.link}>términos y condiciones</button>
+            {t('accept_terms_prefix')} <button type="button" onClick={() => setShowTerms(true)} className={styles.link}>{t('terms_link_text')}</button>
           </label>
         </div>
         {errors.acceptTerms && <p className={styles.error_text_centered}>{errors.acceptTerms.message}</p>}
 
         <button type="submit" disabled={!watchAcceptTerms || isSubmitting} className={styles.btn_primary}>
-          {isSubmitting ? 'Registrando...' : 'Registrar'}
+          {isSubmitting ? t('registering_button') : t('register_button')}
         </button>
       </form>
 
@@ -64,10 +65,10 @@ export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
         <div className={styles.modal_overlay}>
           <div className={styles.modal_content}>
             <div className={styles.modal_header}>
-              <h3 className={styles.modal_title}>Términos y Condiciones</h3>
+              <h3 className={styles.modal_title}>{t('terms_modal_title')}</h3>
               <button onClick={() => setShowTerms(false)} className={styles.modal_close_btn}>&times;</button>
             </div>
-            <iframe src="/Terminos.pdf" className={styles.modal_iframe} title="Términos y condiciones"></iframe>
+            <iframe src="/Terminos.pdf" className={styles.modal_iframe} title={t('terms_modal_title')}></iframe>
           </div>
         </div>
       )}
