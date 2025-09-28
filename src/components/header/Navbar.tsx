@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import styles from '@/components/header/Header.module.css';
+import styles from './Header.module.css';
 
 type Props = {
   isOpen: boolean;

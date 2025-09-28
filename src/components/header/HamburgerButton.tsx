@@ -1,4 +1,4 @@
-import styles from '@/components/Header/Header.module.css'; // Importa estilos del Header
+import styles from './Header.module.css'; // Importa estilos del Header
 
 type Props = {
   isOpen: boolean;
