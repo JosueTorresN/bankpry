@@ -1,0 +1,33 @@
+.form_container {
+  background-color: var(--secondary-color);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.form_title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--font-color);
+  border-bottom: 1px solid rgba(var(--font-color-rgb), 0.1);
+  padding-bottom: 0.75rem;
+}
+.third_party_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.third_party_container > button { width: auto; align-self: flex-end; }
+.owner_success {
+  font-size: 0.875rem;
+  color: var(--success-color, #22c55e);
+  font-weight: 500;
+}
+.currency_display {
+  background-color: rgba(var(--font-color-rgb), 0.05);
+  border: 1px solid rgba(var(--font-color-rgb), 0.1);
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+}
+.currency_display > p { font-size: 1.125rem; font-weight: 600; color: var(--font-color); }
