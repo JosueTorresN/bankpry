@@ -1,0 +1,56 @@
+.card_wrapper {
+  flex-shrink: 0;
+  width: 100%;
+  scroll-snap-align: center;
+}
+@media (min-width: 640px) { .card_wrapper { max-width: 340px; } }
+
+.card_visual {
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  height: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* CAMBIO: Sombra sutil con color de acento */
+  box-shadow: 0 10px 15px -3px rgba(var(--accent-color-rgb), 0.1), 0 4px 6px -2px rgba(var(--accent-color-rgb), 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+.card_visual:hover { transform: scale(1.02); }
+
+/* CAMBIO: Variantes de color ahora usan tu tema */
+.variant_black {
+  background-color: #1C1C1E; /* Un negro ligeramente más claro que el fondo */
+  color: var(--font-color);
+}
+.variant_platinum {
+  background-color: var(--secondary-color);
+  color: var(--font-color);
+}
+.variant_gold {
+  background-image: linear-gradient(to top right, #D4AF37, var(--accent-color));
+  color: var(--font-color-secondary); /* Texto negro para mejor contraste en dorado */
+}
+/* ... (el resto de las clases de la tarjeta usan los colores correctos por herencia) ... */
+.card_header { display: flex; justify-content: space-between; align-items: flex-start; }
+.card_header p { font-size: 1.25rem; font-weight: 700; }
+.card_header span { font-size: 0.875rem; opacity: 0.8; }
+.card_body { display: flex; flex-direction: column; gap: 0.75rem; }
+.card_number { font-family: monospace; font-size: 1.25rem; letter-spacing: 0.1em; }
+.card_footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; opacity: 0.9; }
+.card_footer > div { display: flex; flex-direction: column; }
+.footer_label { text-transform: uppercase; font-weight: 300; }
+.holder_name { text-transform: uppercase; font-weight: 600; }
+
+
+/* CAMBIO: El resumen ahora usa colores del tema oscuro */
+.card_summary {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--secondary-color);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(var(--font-color-rgb), 0.1);
+}
+.summary_label { font-size: 0.875rem; color: rgba(var(--font-color-rgb), 0.7); }
+.summary_value { font-size: 1.125rem; font-weight: 600; color: var(--font-color); margin-bottom: 0.5rem; }
+.summary_limit { display: flex; justify-content: space-between; font-size: 0.75rem; color: rgba(var(--font-color-rgb), 0.7); margin: 0.5rem 0; }

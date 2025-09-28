@@ -1,0 +1,103 @@
+.switcher_container {
+  display: flex;
+  background-color: var(--secondary-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(var(--font-color-rgb), 0.1);
+}
+.switcher_active, .switcher_inactive {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.switcher_active {
+  background-color: var(--primary-color);
+  color: var(--font-color);
+}
+.switcher_inactive {
+  background-color: transparent;
+  color: rgba(var(--font-color-rgb), 0.7);
+}
+.switcher_inactive:hover {
+  background-color: rgba(var(--font-color-rgb), 0.1);
+}
+
+/* --- Estilos para Modal de Confirmación --- */
+.confirmation_details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.detail_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+.detail_item span {
+  color: rgba(var(--font-color-rgb), 0.7);
+}
+.detail_item p, .detail_item small {
+  text-align: right;
+  font-weight: 500;
+  margin: 0;
+}
+.detail_item small {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+.detail_item_amount p {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+.confirmation_actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+.confirmation_actions > button { width: auto; }
+
+/* --- Estilos para Comprobante --- */
+.receipt_container {
+  background-color: var(--secondary-color);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  max-width: 500px;
+  margin: 2rem auto;
+  border: 1px solid rgba(var(--font-color-rgb), 0.1);
+}
+.receipt_icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+.receipt_title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+}
+.receipt_subtitle {
+  color: rgba(var(--font-color-rgb), 0.8);
+  margin-bottom: 1.5rem;
+}
+.receipt_details {
+  border-top: 1px solid rgba(var(--font-color-rgb), 0.1);
+  border-bottom: 1px solid rgba(var(--font-color-rgb), 0.1);
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+}
+.receipt_actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+@media (min-width: 640px) {
+  .receipt_actions { flex-direction: row-reverse; }
+}

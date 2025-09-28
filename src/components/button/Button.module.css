@@ -1,0 +1,45 @@
+/* --- Estilos Base --- */
+.btn {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+/* --- Variante Primaria --- */
+.btn_primary {
+  background-color: var(--accent-color);
+  /* CAMBIO: Texto negro para contraste en fondo dorado */
+  color: var(--font-color-secondary); 
+  border-color: var(--accent-color);
+}
+
+.btn_primary:hover:not(:disabled) {
+  filter: brightness(90%);
+}
+
+/* --- Variante Secundaria --- */
+.btn_secondary {
+  background-color: transparent;
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.btn_secondary:hover:not(:disabled) {
+  background-color: var(--accent-color);
+  /* CAMBIO: Texto negro para contraste en fondo dorado */
+  color: var(--font-color-secondary);
+}
+
+/* --- Estado Deshabilitado --- */
+.btn:disabled {
+  background-color: rgba(var(--font-color-rgb), 0.1);
+  color: rgba(var(--font-color-rgb), 0.4);
+  border-color: transparent;
+  cursor: not-allowed;
+}

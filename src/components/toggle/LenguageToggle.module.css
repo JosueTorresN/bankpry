@@ -1,0 +1,35 @@
+/* ============================================= */
+/* ESTILOS PARA EL BOTÓN DE IDIOMA (TOGGLE)      */
+/* (Añade esto a tu archivo existente)           */
+/* ============================================= */
+
+.language_toggle {
+  /* --- Apariencia Base --- */
+  background-color: transparent;
+  /* Borde sutil que usa el color de fuente con transparencia */
+  border: 1px solid rgba(var(--font-color-rgb), 0.3);
+  color: rgba(var(--font-color-rgb), 0.8);
+  
+  /* --- Forma y Tamaño --- */
+  padding: 0.375rem 0.75rem; /* 6px 12px */
+  border-radius: 9999px; /* Forma de píldora */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  
+  /* --- Interacción --- */
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto al pasar el mouse */
+.language_toggle:hover {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+/* Efecto de foco para accesibilidad (navegación con teclado) */
+.language_toggle:focus-visible {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb), 0.3);
+}

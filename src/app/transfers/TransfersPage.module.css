@@ -1,0 +1,4 @@
+.page_container { padding: var(--spacing-base); }
+.page_title { font-size: var(--font-size-base); font-weight: 700; margin-bottom: 1.5rem; color: var(--font-color); }
+.feedback_container { min-height: 60vh; display: flex; align-items: center; justify-content: center; }
+.receipt_placeholder { background-color: var(--secondary-color); padding: 2rem; border-radius: 0.5rem; text-align: center; }
