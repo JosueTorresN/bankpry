@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { CardMovement } from '@/lib/types/cards';
 import { formatCurrency } from '@/lib/data/cards';
 import styles from './MovementList.module.css';
@@ -23,13 +24,14 @@ function MovementItem({ movement }: { movement: CardMovement }) {
 
 // Componente principal de la lista
 export default function MovementList({ movements }: { movements: CardMovement[] }) {
+  const t = useTranslations('CardDetails');
   if (movements.length === 0) {
-    return <p className={styles.no_results}>No hay movimientos que coincidan con los filtros.</p>;
+    return <p className={styles.no_results}>{t('no_movements_filter_message')}</p>;
   }
 
   return (
     <section aria-labelledby="transactions-heading">
-      <h2 id="transactions-heading" className={styles.list_title}>Transacciones</h2>
+      <h2 id="transactions-heading" className={styles.list_title}>{t('list_title')}</h2>
       <ul className={styles.list}>
         {movements.map(movement => <MovementItem key={movement.id} movement={movement} />)}
       </ul>

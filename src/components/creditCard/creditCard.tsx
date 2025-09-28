@@ -1,6 +1,7 @@
 // components/cards/CreditCard.tsx
 "use client";
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl'; 
+import { useRouter } from '@/i18n/routing';
 import { CreditCard as CreditCardType } from '@/lib/types/cards';
 import { formatCurrency, maskCardNumber } from '@/lib/data/cards';
 import ProgressBar from '@/components/progreBar/progressBar';
@@ -17,6 +18,7 @@ function getCardVariant(type: CreditCardType['type']) {
 
 export default function CreditCard({ card }: { card: CreditCardType }) {
   const router = useRouter();
+  const t = useTranslations('Cards'); 
   const limitUsedPercentage = (card.currentBalance / card.limit) * 100;
   
   const handleViewDetails = () => router.push(`/cards/${card.id}`);
@@ -39,7 +41,7 @@ export default function CreditCard({ card }: { card: CreditCardType }) {
           </p>
           <div className={styles.card_footer}>
             <div>
-              <span className={styles.footer_label}>Vence</span>
+              <span className={styles.footer_label}>{t('expires_label')}</span>
               <span>{card.exp}</span>
             </div>
             <span className={styles.holder_name}>{card.holder}</span>
@@ -50,15 +52,15 @@ export default function CreditCard({ card }: { card: CreditCardType }) {
       {/* Resumen de la tarjeta */}
       <section className={styles.card_summary}>
         <div>
-          <p className={styles.summary_label}>Consumido</p>
+          <p className={styles.summary_label}>{t('consumed_label')}</p>
           <p className={styles.summary_value}>{formatCurrency(card.currentBalance, card.currency)}</p>
         </div>
         <ProgressBar value={limitUsedPercentage} />
         <div className={styles.summary_limit}>
-          <span>Límite Total:</span>
+          <span>{t('total_limit_label')}</span>
           <span>{formatCurrency(card.limit, card.currency)}</span>
         </div>
-        <Button onClick={handleViewDetails}>Ver Movimientos</Button>
+        <Button onClick={handleViewDetails}>{t('view_movements_button')}</Button>
       </section>
     </article>
   );

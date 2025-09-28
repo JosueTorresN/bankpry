@@ -9,6 +9,7 @@ import InputField from '@/components/forms/inputs/inputField';
 import Button from '@/components/button/button';
 import Alert from '@/components/alert/alert';
 import styles from './TransferForm.module.css';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   userAccounts: Account[];
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export default function TransferForm({ userAccounts, initialType, onTypeChange, onSubmit }: Props) {
+  const t = useTranslations('Transfers');
   const { register, handleSubmit, formState: { errors, isValid, isSubmitting }, watch, setValue, trigger } = useForm<TransferFormValues>({
     resolver: zodResolver(transferSchema),
     mode: 'onTouched',
@@ -51,7 +53,7 @@ export default function TransferForm({ userAccounts, initialType, onTypeChange, 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form_container}>
       <h2 className={styles.form_title}>
-        {initialType === 'PROPIAS' ? 'Transferencia Interna' : 'Transferencia a Terceros'}
+        {initialType === 'PROPIAS' ? t('title_internal_transfer') : t('title_third_party_transfer')}
       </h2>
       
       {/* Muestra errores generales del esquema (como el de saldo) */}
@@ -61,28 +63,28 @@ export default function TransferForm({ userAccounts, initialType, onTypeChange, 
         </Alert>
       )}
 
-      <SelectField id="sourceAccountId" label="Desde mi cuenta" registration={register('sourceAccountId')} options={sourceAccountOptions} error={errors.sourceAccountId?.message} />
+      <SelectField id="sourceAccountId" label={t('label_source_account')}  registration={register('sourceAccountId')} options={sourceAccountOptions} error={errors.sourceAccountId?.message} />
 
       {initialType === 'PROPIAS' ? (
-        <SelectField id="targetAccountId" label="Hacia mi cuenta" registration={register('targetAccountId')} options={targetAccountOptions} error={errors.targetAccountId?.message} disabled={!sourceAccount} />
+        <SelectField id="targetAccountId" label={t('label_target_account_own')} registration={register('targetAccountId')} options={targetAccountOptions} error={errors.targetAccountId?.message} disabled={!sourceAccount} />
       ) : (
         <div className={styles.third_party_container}>
-          <InputField id="targetAccountId" label="Cuenta Destino de Tercero" registration={register('targetAccountId')} error={errors.targetAccountId?.message} />
-          <Button onClick={handleValidateThirdParty} variant="secondary">Validar</Button>
-          {watch('targetOwner') && <p className={styles.owner_success}>✅ Titular: {watch('targetOwner')}</p>}
+          <InputField id="targetAccountId" label={t('label_target_account_third')} registration={register('targetAccountId')} error={errors.targetAccountId?.message} />
+          <Button onClick={handleValidateThirdParty} variant="secondary">{t('validate_button')}</Button>
+          {watch('targetOwner') && <p className={styles.owner_success}>✅ {t('owner_success_label')}: {watch('targetOwner')}</p>}
         </div>
       )}
       
       <div className={styles.currency_display}>
-        <label className={styles.label}>Moneda</label>
+        <label className={styles.label}>{t('label_currency')}</label>
         <p>{sourceAccount?.currency || '---'}</p>
       </div>
 
-      <InputField id="amount" label={`Monto (${sourceAccount?.currency || ''})`} type="number" registration={register('amount', { valueAsNumber: true })} error={errors.amount?.message} disabled={!sourceAccount} />
-      <InputField id="description" label="Descripción (Opcional)" registration={register('description')} error={errors.description?.message} />
+      <InputField id="amount" label={`${t('label_amount')} (${sourceAccount?.currency || ''})`} type="number" registration={register('amount', { valueAsNumber: true })} error={errors.amount?.message} disabled={!sourceAccount} />
+      <InputField id="description" label={t('label_description_optional')} registration={register('description')} error={errors.description?.message} />
       
       <Button type="submit" disabled={!isValid || isSubmitting} onClick={() => {}}>
-        {isSubmitting ? 'Procesando...' : 'Continuar'}
+        {isSubmitting ? t('processing_button') : t('continue_button')}
       </Button>
     </form>
   );

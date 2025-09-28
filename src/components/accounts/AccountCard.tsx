@@ -1,22 +1,23 @@
 // components/accounts/AccountCard.tsx
 "use client";
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import { Account } from '@/lib/types/accounts';
 import { formatCurrency } from '@/lib/data/accounts';
 import Button from '@/components/button/button';
 import Tag from '@/components/tag/Tag';
 import styles from './AccountCard.module.css';
-
+import { useTranslations } from 'next-intl';
 type AccountCardProps = {
   account: Account;
 };
 
 export default function AccountCard({ account }: AccountCardProps) {
+  const t = useTranslations('AccountCard');
   const router = useRouter();
   const handleViewDetails = () => router.push(`/dashboard/${account.account_id}`);
   
   // Para accesibilidad, proveemos una descripción más clara
-  const accountNumberDescription = `Cuenta ${account.type} terminada en ${account.account_id.slice(-4)}`;
+  const accountNumberDescription = t('account_number_description', {type: account.type, last_four: account.account_id.slice(-4)});
 
   return (
     <li className={styles.card}>
@@ -30,12 +31,12 @@ export default function AccountCard({ account }: AccountCardProps) {
         </header>
 
         <div className={styles.balance_section}>
-          <p className={styles.balance_label}>Saldo Disponible</p>
+          <p className={styles.balance_label}>{t('balance_label')}</p>
           <p className={styles.balance_value}>{formatCurrency(account.balance, account.currency)}</p>
         </div>
 
         <footer className={styles.card_footer}>
-          <Button onClick={handleViewDetails}>Ver Detalles</Button>
+          <Button onClick={handleViewDetails}>{t('view_details_button')}</Button>
         </footer>
       </article>
     </li>

@@ -11,11 +11,11 @@ import LoadingSpinner from '@/components/feedBack/loadingSpineer';
 import Alert from '@/components/alert/alert';
 import PinConsultModal from '@/components/modalConsults/PinConsultModal';
 import styles from './CardDetailPage.module.css';
-
+import { useTranslations } from 'next-intl';
 export default function CardDetailPage() {
   const params = useParams();
   const cardId = params.cardId as string;
-  
+  const t = useTranslations('CardDetails');
   // Usamos el hook para obtener los datos
   const { card, movements, loading, error } = useCardDetails(cardId);
   
@@ -39,7 +39,7 @@ export default function CardDetailPage() {
   if (!card) return (
     <div className={styles.centered_feedback}>
       <Alert message="Tarjeta no encontrada." type='error'>
-        Tarjeta no encontrada.
+        {t('not_found_erro')}
       </Alert>
     </div>
   );
@@ -50,7 +50,7 @@ export default function CardDetailPage() {
       
       <div className={styles.content_wrapper}>
         <div className={styles.actions_section}>
-          <Button onClick={() => setIsPinModalOpen(true)}>Consultar PIN</Button>
+          <Button onClick={() => setIsPinModalOpen(true)}>{t('consult_pin_button')}</Button>
         </div>
         
         <MovementFilters onFilterChange={(newFilters) => setFilters(prev => ({ ...prev, ...newFilters }))} />

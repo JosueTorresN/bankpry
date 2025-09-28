@@ -1,18 +1,23 @@
-import Link from 'next/link';
-import styles from './Header.module.css';
+// components/common/Navbar.tsx
+"use client";
 
+import {Link} from '@/i18n/routing';
+import styles from './Header.module.css';
+import { useTranslations } from 'next-intl'; 
 type Props = {
   isOpen: boolean;
   onLinkClick?: () => void; // Para cerrar el menú en móvil al hacer clic
 };
 
-const navLinks = [
-  { href: '/dashboard', label: 'Cuentas' },
-  { href: '/cards', label: 'Tarjetas' },
-  { href: '/transfers', label: 'Transferencias' },
-];
+
 
 export default function Navbar({ isOpen, onLinkClick }: Props) {
+  const t = useTranslations('Navigation');
+  const navLinks = [
+  { href: '/dashboard', label:  t('nav_accounts') },
+  { href: '/cards', label: t('nav_cards') },
+  { href: '/transfers', label: t('nav_transfers') },
+];
   return (
     <nav 
       id="navbar"

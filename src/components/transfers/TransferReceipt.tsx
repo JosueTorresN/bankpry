@@ -3,6 +3,7 @@ import { formatCurrency } from '@/lib/data/accounts';
 import { MOCK_ACCOUNTS } from '@/lib/data/accounts';
 import Button from '@/components/button/button';
 import styles from './Transfers.module.css';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   receipt: { transactionId: string } & TransferFormValues;
@@ -10,25 +11,25 @@ type Props = {
 };
 
 export default function TransferReceipt({ receipt, onNewTransfer }: Props) {
-  
+  const t = useTranslations('Transfers');
   const handleDownload = () => {
     const receiptText = `
       ================================
-      COMPROBANTE DE TRANSFERENCIA
+      ${t('receipt_download_title')}
       ================================
-      ID de Transacción: ${receipt.transactionId}
-      Fecha: ${new Date().toLocaleString('es-CR')}
+      ${t('receipt_id_label')}: ${receipt.transactionId}
+      ${t('receipt_date_label')}: ${new Date().toLocaleString('es-CR')}
       
-      CUENTA ORIGEN
-      ID: ${receipt.sourceAccountId}
+      ${t('receipt_source_account_title')}
+      ${t('receipt_id_short_label')}: ${receipt.sourceAccountId}
       
-      CUENTA DESTINO
-      ID: ${receipt.targetAccountId}
-      Titular: ${receipt.targetOwner || 'Cuenta Propia'}
+      ${t('receipt_target_account_title')}
+      ${t('receipt_id_short_label')}: ${receipt.targetAccountId}
+      ${t('receipt_owner_label')}: ${receipt.targetOwner || t('receipt_default_owner')}
       
-      DETALLES
-      Monto: ${formatCurrency(receipt.amount, MOCK_ACCOUNTS.find(a => a.account_id === receipt.sourceAccountId)?.currency || 'CRC')}
-      Descripción: ${receipt.description || 'N/A'}
+      ${t('receipt_details_title')}
+      ${t('receipt_amount_label')}: ${formatCurrency(receipt.amount, MOCK_ACCOUNTS.find(a => a.account_id === receipt.sourceAccountId)?.currency || 'CRC')}
+      ${t('receipt_description_label')} || 'N/A'}
       ================================
     `;
 
@@ -46,22 +47,22 @@ export default function TransferReceipt({ receipt, onNewTransfer }: Props) {
   return (
     <div className={styles.receipt_container}>
       <div className={styles.receipt_icon}>✅</div>
-      <h2 className={styles.receipt_title}>Transferencia Exitosa</h2>
+      <h2 className={styles.receipt_title}>{t('receipt_success_title')}</h2>
       <p className={styles.receipt_subtitle}>
-        Se ha enviado {formatCurrency(receipt.amount, MOCK_ACCOUNTS.find(a => a.account_id === receipt.sourceAccountId)?.currency || 'CRC')} a {receipt.targetOwner || 'tu otra cuenta'}.
+        {t('receipt_success_subtitle')} {formatCurrency(receipt.amount, MOCK_ACCOUNTS.find(a => a.account_id === receipt.sourceAccountId)?.currency || 'CRC')} {t('receipt_success_subtitle2')} {receipt.targetOwner || `${t('receipt_default_target')}`}.
       </p>
       
       <div className={styles.receipt_details}>
         <div className={styles.detail_item}>
-          <span>ID de Transacción</span>
+          <span>{t('receipt_id_label')}</span>
           <p>{receipt.transactionId}</p>
         </div>
          {/* Puedes añadir más detalles aquí si lo deseas */}
       </div>
 
       <div className={styles.receipt_actions}>
-        <Button onClick={handleDownload} variant="secondary">Descargar Comprobante</Button>
-        <Button onClick={onNewTransfer}>Realizar Nueva Transferencia</Button>
+        <Button onClick={handleDownload} variant="secondary">{t('download_receipt_button')}</Button>
+        <Button onClick={onNewTransfer}>{t('new_transfer_button')}</Button>
       </div>
     </div>
   );

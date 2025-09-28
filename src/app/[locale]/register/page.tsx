@@ -3,8 +3,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import AuthLayout from '@/components/auth/AuthLatout'; // Corregido: AuthLayout
-import RegisterForm from '@/components/forms/register/registerForm'; // Corregido: RegisterForm
+import { useTranslations } from 'next-intl'; // Importamos el hook
+import AuthLayout from '@/components/auth/AuthLatout'; 
+import RegisterForm from '@/components/forms/register/registerForm';
 import Alert from '@/components/alert/alert';
 import layoutStyles from '@/components/auth/AuthLayout.module.css';
 
@@ -12,6 +13,7 @@ import layoutStyles from '@/components/auth/AuthLayout.module.css';
 import { RegisterFormValues } from '@/lib/validations/registerSchema';
 
 export default function RegisterPage() {
+  const t = useTranslations('Auth');
   const [isRegistered, setIsRegistered] = useState(false);
   // CAMBIO 2: Guardaremos el nombre completo para un mensaje más personal.
   const [userName, setUserName] = useState('');
@@ -26,15 +28,15 @@ export default function RegisterPage() {
     return (
       <AuthLayout 
         // CAMBIO 4: Mensaje de bienvenida personalizado con el nombre.
-        title={`¡Bienvenido, ${userName}!`} 
-        description="Tu cuenta ha sido creada exitosamente."
+        title={`${t('welcome_title')}, ${userName}!`} 
+        description={t('success_description')}
       >
         <div className={layoutStyles.success_container}>
-          <Alert message="Revisa tu correo para verificar tu cuenta." type="success">
-            Revisa tu correo para verificar tu cuenta.
+          <Alert message={t('verify_email_alert')} type="success">
+            {t('verify_email_alert')}
           </Alert>
           <Link href="/login" className={layoutStyles.btn_primary_link}>
-            Ir a Iniciar Sesión
+           {t('go_to_login_button')}
           </Link>
         </div>
       </AuthLayout>
@@ -43,8 +45,8 @@ export default function RegisterPage() {
 
   return (
     <AuthLayout 
-      title="BanCrap"
-      description="Tu banco en línea seguro y confiable"
+      title={t('brand_title')}
+      description={t('brand_description')}
     >
       <RegisterForm onRegisterSuccess={handleRegisterSuccess} />
     </AuthLayout>
