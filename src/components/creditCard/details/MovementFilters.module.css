@@ -40,23 +40,20 @@
 
 /* --- ESTILOS ESPECÍFICOS Y MEJORADOS PARA EL SELECT --- */
 .type_select {
-  /* 1. Elimina la apariencia nativa del navegador */
+
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  /* 2. Añade espacio a la derecha para la flecha personalizada */
+
   padding-right: 2.5rem; 
 
-  /* 3. Flecha SVG personalizada con el color de tu tema (blanco) */
-  /* El código de color #FFFFFF se codifica como %23FFFFFF para usar en la URL */
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 0.7rem center;
   background-repeat: no-repeat;
   background-size: 1.5em 1.5em;
 }
 
-/* Opcional: Para que las opciones del select también sigan el tema oscuro */
 .type_select option {
   background-color: var(--secondary-color);
   color: var(--font-color);

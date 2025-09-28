@@ -16,7 +16,6 @@ export default function AccountCard({ account }: AccountCardProps) {
   const router = useRouter();
   const handleViewDetails = () => router.push(`/dashboard/${account.account_id}`);
   
-  // Para accesibilidad, proveemos una descripción más clara
   const accountNumberDescription = t('account_number_description', {type: account.type, last_four: account.account_id.slice(-4)});
 
   return (

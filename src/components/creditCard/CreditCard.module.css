@@ -12,15 +12,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* CAMBIO: Sombra sutil con color de acento */
+ 
   box-shadow: 0 10px 15px -3px rgba(var(--accent-color-rgb), 0.1), 0 4px 6px -2px rgba(var(--accent-color-rgb), 0.05);
   transition: transform 0.2s ease-in-out;
 }
 .card_visual:hover { transform: scale(1.02); }
 
-/* CAMBIO: Variantes de color ahora usan tu tema */
+
 .variant_black {
-  background-color: #1C1C1E; /* Un negro ligeramente más claro que el fondo */
+  background-color: #1C1C1E;
   color: var(--font-color);
 }
 .variant_platinum {
@@ -29,9 +29,9 @@
 }
 .variant_gold {
   background-image: linear-gradient(to top right, #D4AF37, var(--accent-color));
-  color: var(--font-color-secondary); /* Texto negro para mejor contraste en dorado */
+  color: var(--font-color-secondary); 
 }
-/* ... (el resto de las clases de la tarjeta usan los colores correctos por herencia) ... */
+
 .card_header { display: flex; justify-content: space-between; align-items: flex-start; }
 .card_header p { font-size: 1.25rem; font-weight: 700; }
 .card_header span { font-size: 0.875rem; opacity: 0.8; }
@@ -43,7 +43,7 @@
 .holder_name { text-transform: uppercase; font-weight: 600; }
 
 
-/* CAMBIO: El resumen ahora usa colores del tema oscuro */
+
 .card_summary {
   margin-top: 1rem;
   padding: 1rem;

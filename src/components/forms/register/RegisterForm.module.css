@@ -1,7 +1,7 @@
 .register_form {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Espacio reducido para más campos */
+  gap: 1rem; 
   width: 100%;
   padding: 2rem;
   border: 1px solid var(--font-color);
@@ -40,7 +40,7 @@
 }
 
 .error_text_centered {
-  margin-top: -0.75rem; /* Ajuste para que quede debajo del checkbox */
+  margin-top: -0.75rem;
   text-align: center;
   font-size: 0.75rem;
   color: var(--error-color, #e53e3e);

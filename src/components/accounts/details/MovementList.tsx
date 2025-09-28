@@ -3,7 +3,7 @@ import { Movement } from '@/lib/types/accounts';
 import { formatCurrency } from '@/lib/data/accounts';
 import styles from './MovementList.module.css';
 import { useTranslations } from 'next-intl';
-// Sub-componente para un solo item, ahora es un <li>
+
 function MovementItem({ movement }: { movement: Movement }) {
  
   const isCredit = movement.type === 'CREDITO';

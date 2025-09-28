@@ -3,7 +3,7 @@ import styles from './MovementFilters.module.css';
 import { useTranslations } from 'next-intl';
 type FilterValues = { searchText: string; filterType: string; };
 type Props = {
-  // Callback para notificar al padre de los cambios
+
   onFilterChange: (filters: Partial<FilterValues>) => void;
 };
 

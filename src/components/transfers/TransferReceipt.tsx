@@ -57,7 +57,6 @@ export default function TransferReceipt({ receipt, onNewTransfer }: Props) {
           <span>{t('receipt_id_label')}</span>
           <p>{receipt.transactionId}</p>
         </div>
-         {/* Puedes añadir más detalles aquí si lo deseas */}
       </div>
 
       <div className={styles.receipt_actions}>

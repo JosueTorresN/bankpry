@@ -6,7 +6,7 @@ import styles from './Header.module.css';
 import { useTranslations } from 'next-intl'; 
 type Props = {
   isOpen: boolean;
-  onLinkClick?: () => void; // Para cerrar el menú en móvil al hacer clic
+  onLinkClick?: () => void;
 };
 
 

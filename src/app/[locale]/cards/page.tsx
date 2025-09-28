@@ -1,6 +1,6 @@
 // app/cards/page.tsx
 "use client";
-import { useTranslations } from 'next-intl'; // Import the hook
+import { useTranslations } from 'next-intl';
 import { useCards } from '@/lib/hooks/useCards';
 import CreditCard from '@/components/creditCard/creditCard';
 import LoadingSpinner from '@/components/feedBack/loadingSpineer';

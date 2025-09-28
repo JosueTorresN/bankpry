@@ -15,7 +15,6 @@ type Props = {
 };
 
 export default function SelectField({ id, label, registration, error, options, className = '', ...props }: Props) {
-  // CAMBIO: Obtenemos el texto de la opción seleccionada para usarlo en el title.
   const selectedValue = props.value || props.defaultValue;
   const selectedOption = options.find(opt => opt.value === selectedValue);
   
@@ -26,7 +25,6 @@ export default function SelectField({ id, label, registration, error, options, c
         id={id} 
         {...registration} 
         className={`${styles.select_element} ${error ? styles.input_error : ''} ${className}`}
-        // CAMBIO: Añadimos el title para que el tooltip muestre el texto completo.
         title={selectedOption ? selectedOption.label : label}
         {...props}
       >

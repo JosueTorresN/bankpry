@@ -8,8 +8,8 @@ type InputFieldProps = {
   type?: string;
   placeholder?: string;
   disabled?: boolean;
-  registration: UseFormRegisterReturn; // Prop para react-hook-form
-  error?: string; // Prop para el mensaje de error
+  registration: UseFormRegisterReturn; 
+  error?: string; 
 };
 
 export default function InputField({ id, label, type = "text", registration, error, ...props }: InputFieldProps) {
@@ -24,7 +24,7 @@ export default function InputField({ id, label, type = "text", registration, err
         className={`${styles.input_field} ${error ? styles.input_error : ''}`}
         aria-invalid={!!error}
         disabled={props.disabled? props.disabled : false}
-        {...registration} // Conecta el input con react-hook-form
+        {...registration} 
         {...props}
       />
       {error && <Alert message={error} type="error">{error}</Alert>}

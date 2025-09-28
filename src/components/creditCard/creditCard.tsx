@@ -23,13 +23,11 @@ export default function CreditCard({ card }: { card: CreditCardType }) {
   
   const handleViewDetails = () => router.push(`/cards/${card.id}`);
 
-  // Para accesibilidad, proveemos el número completo en un aria-label
   const maskedNumber = maskCardNumber(card.cardNumber);
   const fullNumberLabel = `Número de tarjeta: ${card.cardNumber.split('').join(' ')}`;
 
   return (
     <article className={styles.card_wrapper}>
-      {/* Componente visual de la tarjeta */}
       <div className={`${styles.card_visual} ${getCardVariant(card.type)}`}>
         <header className={styles.card_header}>
           <p>{card.type}</p>
@@ -49,7 +47,6 @@ export default function CreditCard({ card }: { card: CreditCardType }) {
         </div>
       </div>
 
-      {/* Resumen de la tarjeta */}
       <section className={styles.card_summary}>
         <div>
           <p className={styles.summary_label}>{t('consumed_label')}</p>

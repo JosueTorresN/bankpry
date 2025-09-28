@@ -1,6 +1,5 @@
 // components/auth/AuthLayout.tsx
 import Image from 'next/image';
-// Importa sus propios estilos
 import styles from './AuthLayout.module.css';
 
 type AuthLayoutProps = {

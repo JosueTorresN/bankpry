@@ -3,15 +3,15 @@
 /* --- Layout Principal --- */
 .container {
   display: flex;
-  flex-direction: column-reverse; /* Apila la sección de bienvenida y el login verticalmente */
-  align-items: center; /* Centra todo horizontalmente */
-  justify-content: center; /* Centra el contenido en el medio de la pantalla */
-  min-height: 100vh; /* Ocupa al menos toda la altura de la pantalla */
-  padding: 2rem; /* Espaciado para que no toque los bordes */
-  gap: 3rem; /* Espacio vertical entre la sección del logo y el formulario de login */
+  flex-direction: column-reverse;
+  align-items: center; 
+  justify-content: center; 
+  min-height: 100vh;
+  padding: 2rem; 
+  gap: 3rem;
 }
 
-/* Secciones de marca y formulario */
+
 .brand_section, .form_section {
   display: flex;
   flex-direction: column;
@@ -77,16 +77,15 @@
   color: var(--background-color, #fff);
 }
 
-/* Div que contiene la información de la app */
 .logo_image {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra el logo y el texto */
+  align-items: center; 
   text-align: center;
 }
 
 
-/* --- ESTILOS PARA PANTALLAS GRANDES --- */
+
 @media (min-width: 992px) {
   .container {
     flex-direction: column;

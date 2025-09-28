@@ -14,7 +14,7 @@
 /* --- Variante Primaria --- */
 .btn_primary {
   background-color: var(--accent-color);
-  /* CAMBIO: Texto negro para contraste en fondo dorado */
+
   color: var(--font-color-secondary); 
   border-color: var(--accent-color);
 }
@@ -23,7 +23,7 @@
   filter: brightness(90%);
 }
 
-/* --- Variante Secundaria --- */
+
 .btn_secondary {
   background-color: transparent;
   color: var(--accent-color);
@@ -32,11 +32,11 @@
 
 .btn_secondary:hover:not(:disabled) {
   background-color: var(--accent-color);
-  /* CAMBIO: Texto negro para contraste en fondo dorado */
+
   color: var(--font-color-secondary);
 }
 
-/* --- Estado Deshabilitado --- */
+
 .btn:disabled {
   background-color: rgba(var(--font-color-rgb), 0.1);
   color: rgba(var(--font-color-rgb), 0.4);

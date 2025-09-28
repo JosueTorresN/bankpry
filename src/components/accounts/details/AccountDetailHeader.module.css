@@ -7,8 +7,27 @@
   z-index: 10;
   border-bottom: 1px solid rgba(var(--font-color-rgb), 0.1);
 }
-.header_title { font-size: 1.25rem; font-weight: 700; color: var(--font-color); }
-.header_subtitle { font-size: 0.875rem; color: rgba(var(--font-color-rgb), 0.7); margin-bottom: 1rem; }
-.balance_summary { padding: 0.75rem; background-color: rgba(var(--primary-color-rgb), 0.1); border-radius: 0.5rem; }
-.balance_label { font-size: 0.875rem; color: var(--primary-color); }
-.balance_value { font-size: 2rem; font-weight: 800; color: var(--primary-color); }
+.header_title { 
+  font-size: 1.25rem; 
+  font-weight: 700; 
+  color: var(--font-color); 
+}
+.header_subtitle { 
+  font-size: 0.875rem; 
+  color: rgba(var(--font-color-rgb), 0.7); 
+  margin-bottom: 1rem; 
+}
+.balance_summary { 
+  padding: 0.75rem; 
+  background-color: rgba(var(--accent-color-rgb), 0.8); 
+  border-radius: 0.5rem; 
+}
+.balance_label { 
+  font-size: 0.875rem; 
+  color: var(--primary-color); 
+}
+.balance_value { 
+  font-size: 2rem; 
+  font-weight: 800; 
+  color: var(--primary-color); 
+}

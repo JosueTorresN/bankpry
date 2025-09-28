@@ -68,12 +68,11 @@
 .input_field:-webkit-autofill:hover, 
 .input_field:-webkit-autofill:focus, 
 .input_field:-webkit-autofill:active {
-    /* 1. Forzar el color del texto */
+
     -webkit-text-fill-color: var(--font-color);
     
-    /* 2. El truco: una sombra interior gigante con el color de fondo de tu tema */
+
     box-shadow: 0 0 0px 1000px var(--background-color) inset;
 
-    /* 3. (Opcional) Una transición suave por si el autocompletado desaparece */
     transition: background-color 5000s ease-in-out 0s;
 }

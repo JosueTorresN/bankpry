@@ -3,31 +3,31 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl'; // Importamos el hook
+import { useTranslations } from 'next-intl'; 
 import AuthLayout from '@/components/auth/AuthLatout'; 
 import RegisterForm from '@/components/forms/register/registerForm';
 import Alert from '@/components/alert/alert';
 import layoutStyles from '@/components/auth/AuthLayout.module.css';
 
-// CAMBIO 1: Importamos el tipo de datos del formulario desde el esquema de Zod.
+
 import { RegisterFormValues } from '@/lib/validations/registerSchema';
 
 export default function RegisterPage() {
   const t = useTranslations('Auth');
   const [isRegistered, setIsRegistered] = useState(false);
-  // CAMBIO 2: Guardaremos el nombre completo para un mensaje más personal.
+
   const [userName, setUserName] = useState('');
 
-  // CAMBIO 3: La función ahora espera el objeto 'data' completo, no solo el email.
+
   const handleRegisterSuccess = (data: RegisterFormValues) => {
-    setUserName(data.fullName); // Usamos el nombre completo del objeto de datos
+    setUserName(data.fullName);
     setIsRegistered(true);
   };
 
   if (isRegistered) {
     return (
       <AuthLayout 
-        // CAMBIO 4: Mensaje de bienvenida personalizado con el nombre.
+
         title={`${t('welcome_title')}, ${userName}!`} 
         description={t('success_description')}
       >
