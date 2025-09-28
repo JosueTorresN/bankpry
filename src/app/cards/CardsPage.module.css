@@ -1,0 +1,41 @@
+/* CAMBIO: Se usan variables del tema para el fondo y el texto. */
+.page_container {
+  min-height: 100vh;
+  background-color: var(--background-color);
+  padding: var(--spacing-base);
+}
+
+.page_title {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--font-color);
+}
+
+.centered_feedback {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--font-color);
+  opacity: 0.8;
+}
+
+.cards_carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: var(--spacing-base);
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.cards_carousel::-webkit-scrollbar { display: none; }
+.cards_carousel { -ms-overflow-style: none; scrollbar-width: none; }
+
+@media (min-width: 600px) {
+  .cards_carousel {
+    gap: calc(var(--spacing-base) * 1.5);
+    align-items: center;
+    justify-content: center;
+  }
+}

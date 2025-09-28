@@ -1,0 +1,17 @@
+.page_container {
+  background-color: var(--background-color);
+  color: var(--font-color);
+  min-height: 100vh;
+}
+.content_wrapper {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.feedback_container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

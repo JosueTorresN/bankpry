@@ -1,0 +1,24 @@
+.spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  
+  /* Borde base de un color claro y sutil */
+  border: 5px solid rgba(var(--font-color-rgb), 0.2);
+  
+  /* El color del trozo que gira, usa tu color de acento */
+  border-top-color: var(--accent-color);
+  
+  /* Animación que lo hace girar infinitamente */
+  animation: spin 1s linear infinite;
+}
+
+/* Define la animación de rotación */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

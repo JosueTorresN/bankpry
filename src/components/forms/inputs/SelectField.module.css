@@ -1,0 +1,85 @@
+/* ============================================= */
+/* ESTILOS PARA SELECTFIELD REUTILIZABLE         */
+/* ============================================= */
+
+/* Contenedor del label y el select */
+.input_wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Etiqueta del campo */
+.label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500;
+  color: var(--font-color);
+}
+
+/* Estilo principal del elemento <select> */
+.select_element {
+  /* --- Apariencia Base --- */
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem; /* Padding derecho extra para la flecha */
+  font-size: 1rem;
+  color: var(--font-color);
+  background-color: transparent;
+  border: 1px solid rgba(var(--font-color-rgb), 0.3);
+  border-radius: 0.375rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  /* --- Flecha Personalizada --- */
+  appearance: none; /* Elimina la flecha por defecto del navegador */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  /* Flecha SVG con color blanco (#FFFFFF -> %23FFFFFF) para tu tema oscuro */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.7rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+
+  white-space: nowrap;     /* Evita que el texto salte a otra línea */
+  overflow: hidden;        /* Oculta el texto que se sale del contenedor */
+  text-overflow: ellipsis; /* Muestra "..." al final del texto cortado */
+}
+
+/* Estado cuando se hace clic o se navega con el teclado */
+.select_element:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb), 0.2);
+}
+
+/* --- Estilos de las Opciones --- */
+.select_element option {
+  background-color: var(--secondary-color);
+  color: var(--font-color);
+}
+
+
+/* --- Estilos de Error --- */
+/* Modificador que se aplica cuando hay un error de validación */
+.input_error {
+  border-color: var(--accent-danger) !important;
+}
+
+.input_error:focus {
+  box-shadow: 0 0 0 3px rgba(var(--accent-danger-rgb), 0.2) !important; /* Asume que tienes --accent-danger-rgb */
+}
+
+/* Texto del mensaje de error */
+.error_text {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--accent-danger);
+}
+
+.select_element option {
+  background-color: var(--secondary-color);
+  color: var(--font-color);
+  padding: 0.5rem; /* Opcional: mejora el espaciado */
+}

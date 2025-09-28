@@ -1,0 +1,33 @@
+.error_message {
+    color: var(--accent-danger); /* Un color rojo para el error */
+    background-color: #fed7d7; /* Un fondo rojo claro */
+    border: 2px solid var(--accent-danger);
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.ok_message {
+    color: var(--accent-color); /* Un color verde para el éxito */
+    background-color: #d1fae5; /* Un fondo verde claro */
+    border: 2px solid var(--accent-color);
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.welcome_container {
+    text-align: center;
+}
+
+.logout_button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 0.375rem;
+    border: 1px solid;
+    /* Puedes añadir más estilos para que coincida con tu tema */
+}
