@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Navbar from '@/components/header/navbar/Navbar';
-import HamburgerButton from '@/components/header/hamburgButton/HamburgerButton';
+import Navbar from '@/components/header/Navbar';
+import HamburgerButton from '@/components/header/HamburgerButton';
 import LanguageToggle from '@/components/toggle/LanguageToggle';
 import styles from './Header.module.css';
 
