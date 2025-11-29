@@ -13,11 +13,8 @@ export interface LoginRequest {
 export interface LoginResponse {
   data: {
     token: string;
-    // Puedes incluir más campos si tu API los devuelve, como 'user', etc.
   };
-  //token: string; // Ejemplo de un token JWT
   user_id: number;
-  // ... otros campos que devuelva la API
 }
 
 /**
