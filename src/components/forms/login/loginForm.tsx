@@ -48,8 +48,8 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
       // -----------------------------------------------------------------
       // 3. ÉXITO: Procesar la respuesta
       // -----------------------------------------------------------------
-      console.log('Login exitoso. Token recibido:', response.token);
-      
+      console.log('Login exitoso. Token recibido:', response.data.token);
+      localStorage.setItem("TOKEN", response.data.token);
       // Llamamos a la función de éxito y redirigimos
       onLoginSuccess(data.username);
       router.push("/dashboard"); 
