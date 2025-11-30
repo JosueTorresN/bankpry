@@ -1,28 +1,28 @@
 import axios, { AxiosError } from 'axios';
 import { Account } from '@/lib/types/accounts'; 
 import { ApiError } from '../types/api'; 
-
+import { AccountsApiResponse } from '@/lib/types/accounts';
 
 const API_BASE_URL = 'https://bank-crap-servi.onrender.com/api/v1';
 const API_KEY = 'BanCrapTEC2025SecretKey!';
 
 
-interface AccountsApiResponse {
-  success: boolean;
-  timestamp: string;
-  path: string;
-  data: Array<{
-    id: string;
-    usuario_id: string;
-    iban: string;
-    alias: string;
-    tipocuenta: string; 
-    moneda: string;     
-    saldo: string;      
-    estado: string;
-    fecha_creacion: string;
-  }>;
-}
+// interface AccountsApiResponse {
+//   success: boolean;
+//   timestamp: string;
+//   path: string;
+//   data: Array<{
+//     id: string;
+//     usuario_id: string;
+//     iban: string;
+//     alias: string;
+//     tipocuenta: string; 
+//     moneda: string;     
+//     saldo: string;      
+//     estado: string;
+//     fecha_creacion: string;
+//   }>;
+// }
 
 /**
  * Mapea la respuesta de la API al tipo Account local.
@@ -42,6 +42,7 @@ const mapApiAccountToLocal = (apiAccount: AccountsApiResponse['data'][0]): Accou
   };
 
   return {
+    id: apiAccount.id,
     account_id: apiAccount.iban, 
     alias: apiAccount.alias,
     type: accountTypeMap[apiAccount.tipocuenta] || 'Corriente', 

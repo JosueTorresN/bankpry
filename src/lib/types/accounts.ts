@@ -6,6 +6,7 @@ export type MovementType = 'CREDITO' | 'DEBITO';
 
 // --- Tipos de Cuentas ---
 export interface Account {
+  id: string;
   account_id: string; // Formato IBAN: CR01-{4 banco}-{4 sucursal}-{12 cuenta}
   alias: string;      // Nombre amigable
   type: AccountType;  // Ahorro | Corriente
@@ -41,4 +42,42 @@ export interface TransferReceipt {
   currency: Currency;
   description: string;
   timestamp: string; // Fecha y hora de la operación
+}
+
+export interface AccountsApiResponse {
+  success: boolean;
+  timestamp: string;
+  path: string;
+  data: Array<{
+    id: string;
+    usuario_id: string;
+    iban: string;
+    alias: string;
+    tipocuenta: string; 
+    moneda: string;     
+    saldo: string;      
+    estado: string;
+    fecha_creacion: string;
+  }>;
+}
+
+// Define la estructura de datos de la cuenta que viene de la API
+export interface ApiAccountData {
+    id: string;
+    usuario_id: string;
+    iban: string;
+    alias: string;
+    tipocuenta: string; // ID o string
+    moneda: string;     // ID o string
+    saldo: string;      // Viene como string "0.00"
+    estado: string;
+    fecha_creacion: string;
+}
+
+// Define la estructura de la respuesta para una sola cuenta
+export interface AccountDetailApiResponse {
+    success: boolean;
+    timestamp: string;
+    path: string;
+    data: ApiAccountData;
 }
