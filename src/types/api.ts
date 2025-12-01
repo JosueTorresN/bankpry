@@ -33,3 +33,33 @@ export interface RegisterResponse {
     message: string;
     // ... otros campos
 }
+
+export type MovementType = 'CREDITO' | 'DEBITO' | 'TODOS';
+
+// Interfaces para la respuesta de la API de Movimientos
+export interface ApiMovementData {
+  id: string;
+  cuenta_id: string;
+  fecha: string;
+  tipo: string; // UUID
+  descripcion: string;
+  moneda: string; // UUID
+  monto: string; // Viene como string "150.75"
+}
+
+export interface PaginationData {
+  totalItems: number;
+  totalPages: number;
+  currentPage: number;
+  pageSize: number;
+}
+
+export interface MovementApiResponse {
+  success: boolean;
+  timestamp: string;
+  path: string;
+  data: {
+    pagination: PaginationData;
+    data: ApiMovementData[];
+  };
+}

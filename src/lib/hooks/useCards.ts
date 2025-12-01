@@ -2,29 +2,46 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { CreditCard } from '@/lib/types/cards';
-import { MOCK_CARDS } from '@/lib/data/cards';
+import { fetchCards } from '@/services/cards'; // <--- Importamos el servicio
+
+// Helper simple para token (igual que en accounts)
+const useAuthToken = () => {
+    return typeof window !== 'undefined' ? localStorage.getItem("TOKEN") : null;
+};
 
 export function useCards() {
   const [cards, setCards] = useState<CreditCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  const token = useAuthToken();
 
   useEffect(() => {
-    // Simula una llamada a una API
-    const fetchCards = async () => {
+    const loadCards = async () => {
+      // 1. Validar Token
+      if (!token) {
+        setError('No se encontró sesión activa.');
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
       try {
-        setLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simula retraso de red
-        setCards(MOCK_CARDS);
-      } catch (err) {
-        setError('No se pudieron cargar las tarjetas.');
+        // 2. Llamada al servicio real
+        const data = await fetchCards(token);
+        setCards(data);
+        setError(null);
+      } catch (err: any) {
+        console.error("Error fetching cards:", err);
+        setError(err.message || 'No se pudieron cargar las tarjetas.');
+        setCards([]); // Limpiar en caso de error
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCards();
-  }, []);
+    loadCards();
+  }, [token]);
 
   return { cards, loading, error };
 }

@@ -1,46 +1,51 @@
+// hooks/useCardDetails.ts
 "use client";
 import { useState, useEffect } from 'react';
 import { CreditCard, CardMovement } from '@/lib/types/cards';
-import { MOCK_CARDS, MOCK_CARD_MOVEMENTS } from '@/lib/data/cards';
+import { fetchCardById, fetchCardMovements } from '@/services/cards';
 
-export function useCardDetails(cardId: string | undefined) {
-  const [card, setCard] = useState<CreditCard | null>(null);
-  const [movements, setMovements] = useState<CardMovement[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const useAuthToken = () => {
+    return typeof window !== 'undefined' ? localStorage.getItem("TOKEN") : null;
+};
 
-  useEffect(() => {
-    if (!cardId) {
-      setError('ID de tarjeta no proporcionado.');
-      setLoading(false);
-      return;
-    }
+export function useCardDetails(cardId: string) {
+    const [card, setCard] = useState<CreditCard | null>(null);
+    const [movements, setMovements] = useState<CardMovement[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    
+    const token = useAuthToken();
 
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 500)); // Simula red
-        
-        const foundCard = MOCK_CARDS.find(c => c.id === cardId);
-        if (!foundCard) {
-          throw new Error('Tarjeta no encontrada.');
-        }
+    useEffect(() => {
+        if (!cardId || !token) return;
 
-        const cardMovements = MOCK_CARD_MOVEMENTS
-          .filter(m => m.card_id === cardId)
-          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        const loadData = async () => {
+            setLoading(true);
+            try {
+                // Ejecutamos ambas peticiones en paralelo
+                const [cardData, movementsData] = await Promise.all([
+                    fetchCardById(cardId, token),
+                    fetchCardMovements(cardId, token)
+                ]);
 
-        setCard(foundCard);
-        setMovements(cardMovements);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+                setCard(cardData);
+                
+                // Ordenar por fecha descendente (más reciente primero)
+                const sortedMovements = movementsData.sort((a, b) => 
+                    new Date(b.date).getTime() - new Date(a.date).getTime()
+                );
+                setMovements(sortedMovements);
+                
+            } catch (err: any) {
+                console.error(err);
+                setError(err.message || 'Error cargando detalles de la tarjeta');
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    fetchData();
-  }, [cardId]);
+        loadData();
+    }, [cardId, token]);
 
-  return { card, movements, loading, error };
+    return { card, movements, loading, error };
 }

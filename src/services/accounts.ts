@@ -32,13 +32,13 @@ const API_KEY = 'BanCrapTEC2025SecretKey!';
 const mapApiAccountToLocal = (apiAccount: AccountsApiResponse['data'][0]): Account => {
 
   const currencyMap: Record<string, 'CRC' | 'USD'> = {
-    '30000000-0000-0000-0000-000000000002': 'USD', 
-    
+    '30000000-0000-0000-0000-000000000002': 'CRC', 
+    '50000000-0000-0000-0000-000000000002': 'USD'
   };
 
   const accountTypeMap: Record<string, 'Ahorro' | 'Corriente'> = {
-    '50000000-0000-0000-0000-000000000001': 'Corriente', 
-    
+    '50000000-0000-0000-0000-000000000002': 'Corriente',
+    '50000000-0000-0000-0000-000000000001': 'Ahorro'
   };
 
   return {

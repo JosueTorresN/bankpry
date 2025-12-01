@@ -31,7 +31,6 @@ export function useAccounts() {
         setLoading(true);
  
         const fetchedAccounts = await fetchAccounts(authToken);
-       
 
         setAccounts(fetchedAccounts);
         setError(null);

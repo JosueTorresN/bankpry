@@ -36,3 +36,43 @@ export const maskCardNumber = (cardNumber: string) => {
   const last = cardNumber.substring(12, 16);
   return `${first} **** **** ${last}`;
 };
+
+// Respuesta cruda de la API
+export interface ApiCardData {
+  id: string;
+  usuario_id: string;
+  tipo: string; // UUID
+  numero_enmascarado: string;
+  fecha_expiracion: string;
+  moneda: string; // UUID
+  limite_credito: string; // "0.00"
+  saldo_actual: string;   // "0.00"
+}
+
+export interface CardsApiResponse {
+  success: boolean;
+  timestamp: string;
+  path: string;
+  data: ApiCardData[];
+}
+
+export interface ApiCardMovementData {
+  id: string;
+  tarjeta_id: string; // Asumo que el backend usa 'tarjeta_id' o 'card_id'
+  fecha: string;
+  tipo: string;       // UUID del tipo de movimiento
+  descripcion: string;
+  moneda: string;     // UUID de la moneda
+  monto: string;      // "150.00"
+}
+
+export interface CardMovementsApiResponse {
+  success: boolean;
+  data: {
+    pagination: {
+        totalItems: number;
+        // ... otros datos de paginación
+    };
+    data: ApiCardMovementData[];
+  };
+}
