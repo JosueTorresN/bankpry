@@ -1,7 +1,8 @@
 "use client";
 import { useForm } from 'react-hook-form';
+import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { transferSchema, TransferFormValues } from '@/lib/validations/transferSchema';
+import { createTransferSchema, TransferFormValues } from '@/lib/validations/transferSchema';
 import { findThirdPartyOwner, formatCurrency } from '@/lib/data/accounts';
 import { Account } from '@/lib/types/accounts';
 import SelectField from '@/components/forms/inputs/SelectField';
@@ -20,6 +21,7 @@ type Props = {
 
 export default function TransferForm({ userAccounts, initialType, onTypeChange, onSubmit }: Props) {
   const t = useTranslations('Transfers');
+  const transferSchema = useMemo(() => createTransferSchema(userAccounts), [userAccounts]);
   const { register, handleSubmit, formState: { errors, isValid, isSubmitting }, watch, setValue, trigger } = useForm<TransferFormValues>({
     resolver: zodResolver(transferSchema),
     mode: 'onTouched',
@@ -27,7 +29,7 @@ export default function TransferForm({ userAccounts, initialType, onTypeChange, 
   });
 
   const sourceAccountId = watch('sourceAccountId');
-  const sourceAccount = userAccounts.find(a => a.account_id === sourceAccountId);
+  const sourceAccount = userAccounts.find(a => a.id === sourceAccountId);
 
   const handleValidateThirdParty = async () => {
     // Forzar validación del campo para obtener el valor más reciente
@@ -40,14 +42,14 @@ export default function TransferForm({ userAccounts, initialType, onTypeChange, 
   
   const sourceAccountOptions = [
     { value: '', label: 'Seleccione cuenta origen', disabled: true },
-    ...userAccounts.map(a => ({ value: a.account_id, label: `${a.alias} (${a.currency}) - ${formatCurrency(a.balance, a.currency)}` }))
+    ...userAccounts.map(a => ({id: a.id, value: a.id, label: `${a.alias} (${a.currency}) - ${formatCurrency(a.balance, a.currency)}` }))
   ];
 
   const targetAccountOptions = [
     { value: '', label: 'Seleccione cuenta destino', disabled: true },
     ...userAccounts
-      .filter(a => a.account_id !== sourceAccountId && a.currency === sourceAccount?.currency)
-      .map(a => ({ value: a.account_id, label: `${a.alias} (${a.currency})` }))
+      .filter(a => a.id !== sourceAccountId && a.currency === sourceAccount?.currency)
+      .map(a => ({ value: a.id, label: `${a.alias} (${a.currency})` }))
   ];
   
   return (

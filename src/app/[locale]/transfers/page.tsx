@@ -51,7 +51,9 @@ export default function TransfersPage() {
 
     try {
         // 1. Buscamos la cuenta origen para saber su moneda (CRC/USD)
-        const sourceAccount = accounts.find(a => a.account_id === transferData.sourceAccountId);
+        console.log("Cuentas disponibles:", transferData);
+        const sourceAccount = accounts.find(a => a.id === transferData.sourceAccountId);
+        console.log("Cuenta origen encontrada:", sourceAccount);
         const currencyCode = sourceAccount?.currency || 'CRC';
 
         // 2. Llamada REAL al backend
@@ -61,6 +63,7 @@ export default function TransfersPage() {
         const finalReceipt = {
             transactionId: result.receipt_number, // Usamos el número de recibo real
             date: new Date().toISOString(),
+            currency: currencyCode,
             ...transferData
         };
 
@@ -98,7 +101,7 @@ export default function TransfersPage() {
       )}
 
       {pageState === 'RECEIPT' ? (
-        <TransferReceipt receipt={receiptData} onNewTransfer={resetFlow} />
+        <TransferReceipt receipt={receiptData} onNewTransfer={resetFlow} accounts={accounts} />
       ) : (
         <>
           <h1 className={styles.page_title}>{t('page_title')}</h1>
@@ -119,7 +122,8 @@ export default function TransfersPage() {
           onConfirm={handleConfirmTransfer}
           isSubmitting={isSubmitting}
           data={transferData}
-          sourceAccount={accounts.find(a => a.account_id === transferData.sourceAccountId)}
+          sourceAccount={accounts.find(a => a.id === transferData.sourceAccountId)}
+          accounts={accounts}
         />
       )}
     </main>

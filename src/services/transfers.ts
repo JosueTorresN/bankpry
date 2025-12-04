@@ -4,11 +4,11 @@ import { TransferFormValues } from '@/lib/validations/transferSchema';
 import { ApiError } from '@/types/api'; 
 
 const API_BASE_URL = 'https://bank-crap-servi.onrender.com/api/v1';
-const API_KEY = 'BANK-CENTRAL-IC8057-2025'; 
+const API_KEY = 'BanCrapTEC2025SecretKey!'//'BANK-CENTRAL-IC8057-2025';
 
 // Mapa para convertir tu moneda local (CRC) al UUID que pide el backend
 const currencyToUuidMap: Record<string, string> = {
-    'CRC': '50000000-0000-0000-0000-000000000002',
+    'CRC': '30000000-0000-0000-0000-000000000001',
     'USD': '30000000-0000-0000-0000-000000000002', // Asumiendo UUID para USD (ajustar si es diferente)
 };
 
@@ -22,6 +22,7 @@ export interface InternalTransferResponse {
  * Realiza una transferencia interna entre cuentas propias.
  */
 export async function performInternalTransfer(data: TransferFormValues, currencyCode: string, token: string): Promise<InternalTransferResponse> {
+    console.log("Iniciando transferencia interna con datos:", data, "y moneda:", currencyCode);
     const endpoint = `${API_BASE_URL}/transfers/internal`;
     
     // Convertimos la moneda visual (CRC) al UUID técnico
@@ -29,17 +30,17 @@ export async function performInternalTransfer(data: TransferFormValues, currency
 
     // Preparamos el payload exacto que pide el backend
     const payload = {
-        fromAccountId: data.sourceAccountId,
-        toAccountId: data.targetAccountId,
-        amount: data.amount, // Asumimos que ya es número
+        fromAccountId: data.sourceAccountId, // Esto tomará el valor del Select (el UUID)
+        toAccountId: data.targetAccountId,   // Esto tomará el valor del Select (el UUID)
+        amount: data.amount,
         currency: currencyUuid,
         description: data.description || 'Transferencia interna'
     };
-
+    console.log("Payload de transferencia:", payload);
     try {
         const response = await axios.post<{ data: InternalTransferResponse }>(endpoint, payload, {
             headers: {
-                'X-API-TOKEN': API_KEY,
+                'x-api-key': API_KEY,
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             }
