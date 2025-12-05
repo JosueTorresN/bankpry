@@ -1,8 +1,7 @@
 "use client";
-import { useState, useMemo } from 'react'; // Importar useState
+import { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-// Importar la nueva función de servicio
 import { validateExternalAccount } from '@/services/transfers'; 
 import { createTransferSchema, TransferFormValues } from '@/lib/validations/transferSchema';
 import { formatCurrency } from '@/lib/data/accounts';
@@ -11,7 +10,7 @@ import SelectField from '@/components/forms/inputs/SelectField';
 import InputField from '@/components/forms/inputs/inputField';
 import Button from '@/components/button/button';
 import Alert from '@/components/alert/alert';
-import LoadingSpinner from '@/components/feedBack/loadingSpineer'; // Asegúrate de tener este import
+import LoadingSpinner from '@/components/feedBack/loadingSpineer';
 import styles from './TransferForm.module.css';
 import { useTranslations } from 'next-intl';
 type Props = {
@@ -19,12 +18,11 @@ type Props = {
   initialType: 'PROPIAS' | 'TERCEROS';
   onTypeChange: (type: 'PROPIAS' | 'TERCEROS') => void;
   onSubmit: (data: TransferFormValues) => void;
-  token: string | null; // <--- NUEVO PROP: Necesitamos el token aquí
+  token: string | null;
 };
 
 export default function TransferForm({ userAccounts, initialType, onTypeChange, onSubmit, token }: Props) {
   const t = useTranslations('Transfers');
-  // Estado local para saber si estamos validando la cuenta externa
   const [isValidating, setIsValidating] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
 
@@ -40,11 +38,11 @@ export default function TransferForm({ userAccounts, initialType, onTypeChange, 
   const sourceAccount = userAccounts.find(a => a.id === sourceAccountId);
 
   const handleValidateThirdParty = async () => {
-      // 1. Limpiar estados previos
+      // Limpiar estados previos
       setValidationError(null);
       setValue('targetOwner', undefined); // Resetear dueño
       
-      // 2. Validar que el campo IBAN no esté vacío usando Zod
+
       const isFieldValid = await trigger('targetAccountId');
       if (!isFieldValid) return;
 
@@ -58,15 +56,13 @@ export default function TransferForm({ userAccounts, initialType, onTypeChange, 
       setIsValidating(true);
 
       try {
-          // 3. Llamada real al Backend
           const ownerName = await validateExternalAccount(targetId, token);
-          
-          // 4. Éxito: Escribir el nombre y revalidar el formulario para activar el botón de "Continuar"
+
           setValue('targetOwner', ownerName, { shouldValidate: true });
           clearErrors('targetAccountId');
 
       } catch (error: any) {
-          // 5. Error: Mostrar mensaje y asignar error al campo
+
           console.error(error);
           const msg = error.message || 'Error al validar cuenta';
           setValidationError(msg);
@@ -94,7 +90,7 @@ export default function TransferForm({ userAccounts, initialType, onTypeChange, 
         {initialType === 'PROPIAS' ? t('title_internal_transfer') : t('title_third_party_transfer')}
       </h2>
       
-      {/* Muestra errores generales del esquema (como el de saldo) */}
+      {/* Muestra errores generales del esquema */}
       {errors.amount?.message?.includes('Saldo insuficiente') && (
         <Alert message={errors.amount.message} type="error">
           {errors.amount.message}
