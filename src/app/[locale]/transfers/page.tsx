@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useAccounts } from '@/lib/hooks/useAccounts';
 import { TransferFormValues } from '@/lib/validations/transferSchema';
 // Importamos el nuevo servicio
-import { performInternalTransfer } from '@/services/transfers'; 
+import { performInternalTransfer, performInterbankTransfer } from '@/services/transfers';
 
 import TransferTypeSwitcher from '@/components/transfers/TransferTypeSwitcher';
 import TransferForm from '@/components/forms/transfers/TransferForm';
@@ -50,20 +50,25 @@ export default function TransfersPage() {
     setError(null);
 
     try {
-        // 1. Buscamos la cuenta origen para saber su moneda (CRC/USD)
-        console.log("Cuentas disponibles:", transferData);
         const sourceAccount = accounts.find(a => a.id === transferData.sourceAccountId);
-        console.log("Cuenta origen encontrada:", sourceAccount);
         const currencyCode = sourceAccount?.currency || 'CRC';
 
-        // 2. Llamada REAL al backend
-        const result = await performInternalTransfer(transferData, currencyCode, token);
+        let result;
+        console.log("Iniciando transferencia con datos:", transferData.transferType , "y moneda:", currencyCode);
+        // LÓGICA DE SELECCIÓN DE SERVICIO
+        if (transferType === 'TERCEROS') {
+            // Caso: Transferencia a otros bancos
+            result = await performInterbankTransfer(transferData, currencyCode, token);
+        } else {
+            // Caso: Transferencia interna (PROPIAS)
+            result = await performInternalTransfer(transferData, currencyCode, token);
+        }
         
-        // 3. Crear datos para el recibo con la respuesta real del backend
+        // Crear recibo (funciona igual para ambas)
         const finalReceipt = {
-            transactionId: result.receipt_number, // Usamos el número de recibo real
+            transactionId: result.receipt_number,
             date: new Date().toISOString(),
-            currency: currencyCode,
+            currency: currencyCode, // Agregado en el paso anterior
             ...transferData
         };
 
@@ -73,8 +78,7 @@ export default function TransfersPage() {
     } catch (err: any) {
         console.error("Transfer error:", err);
         setError(err.message || "Falló la transferencia.");
-        // Opcional: Cerrar modal o mantenerlo abierto para reintentar
-        setPageState('FORM'); // Regresamos al form para que vea el error
+        setPageState('FORM'); 
     } finally {
         setIsSubmitting(false);
     }
@@ -111,6 +115,7 @@ export default function TransfersPage() {
             initialType={transferType}
             onTypeChange={setTransferType}
             onSubmit={handleFormSubmit}
+            token={token || ''}
           />
         </>
       )}
