@@ -9,9 +9,7 @@ import IdTypeSelect from '@/components/select/IdTypeSelect';
 import styles from './RegisterForm.module.css';
 import { useTranslations } from 'next-intl';
 
-// --- NUEVAS IMPORTACIONES DE SERVICIOS ---
 import { registerUser, RegisterApiRequest, ID_TYPE_MAP } from '@/services/users';
-// ----------------------------------------
 
 type RegisterFormProps = {
   onRegisterSuccess: (data: RegisterFormValues) => void;
@@ -35,18 +33,16 @@ export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
   const watchAcceptTerms = watch('acceptTerms');
 
   const onSubmit = async (data: RegisterFormValues) => {
-    setApiError(null); // Limpiar errores previos
+    setApiError(null);
 
     // 1. Mapear datos del formulario a la estructura de la API
     
-    // Asumiendo una división simple del nombre completo en nombre y apellido.
     const fullNameParts = data.fullName.trim().split(/\s+/);
     const firstName = fullNameParts.slice(0, -1).join(' ');
-    // El último segmento se considera el apellido. Si solo hay una palabra, se usa como apellido.
     const lastName = fullNameParts.length > 1 ? fullNameParts[fullNameParts.length - 1] : data.fullName;
 
     const apiData: RegisterApiRequest = {
-        // Mapea el tipo de identificación (ej. 'Nacional') al UUID de la API
+        // Mapea el tipo de identificación
         tipo_identificacion: ID_TYPE_MAP[data.idType],
         identificacion: data.idNumber,
         nombre: firstName,
@@ -55,7 +51,7 @@ export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
         telefono: data.phone,
         usuario: data.username,
         password: data.password,
-        fecha_nacimiento: data.birthDate, // Ya debería estar en formato YYYY-MM-DD
+        fecha_nacimiento: data.birthDate,
     };
 
     try {

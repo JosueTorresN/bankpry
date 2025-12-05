@@ -7,7 +7,6 @@ const API_BASE_URL = 'https://bank-crap-servi.onrender.com/api/v1';
 const API_KEY = 'BanCrapTEC2025SecretKey!'//'BANK-CENTRAL-IC8057-2025';
 const API_TOKEN_HEADER = 'BANK-CENTRAL-IC8057-2025';
 
-// Mapa para convertir tu moneda local (CRC) al UUID que pide el backend
 const currencyToUuidMap: Record<string, string> = {
     'CRC': '30000000-0000-0000-0000-000000000001',
     'USD': '30000000-0000-0000-0000-000000000002',
@@ -123,12 +122,12 @@ export async function validateExternalAccount(iban: string, token: string): Prom
 
         const data = response.data;
 
-        // 1. Verificamos si la bandera 'exists' es true [cite: 100]
+        // 1. Verificamos si la bandera 'exists' es true
         if (!data.exists || !data.info) {
              throw new Error('La cuenta no existe en el banco destino.');
         }
 
-        // 2. Retornamos el nombre que está dentro del objeto 'info' [cite: 111]
+        // 2. Retornamos el nombre que está dentro del objeto 'info'
         return data.info.name;
 
     } catch (error) {

@@ -2,9 +2,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { CreditCard } from '@/lib/types/cards';
-import { fetchCards } from '@/services/cards'; // <--- Importamos el servicio
+import { fetchCards } from '@/services/cards';
 
-// Helper simple para token (igual que en accounts)
 const useAuthToken = () => {
     return typeof window !== 'undefined' ? localStorage.getItem("TOKEN") : null;
 };
@@ -34,7 +33,7 @@ export function useCards() {
       } catch (err: any) {
         console.error("Error fetching cards:", err);
         setError(err.message || 'No se pudieron cargar las tarjetas.');
-        setCards([]); // Limpiar en caso de error
+        setCards([]);
       } finally {
         setLoading(false);
       }

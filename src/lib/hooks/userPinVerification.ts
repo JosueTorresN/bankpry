@@ -1,7 +1,7 @@
 // lib/hooks/userPinVerification.ts
 "use client";
 import { useState, useEffect, useCallback } from 'react';
-import { requestCardOtp, verifyCardOtp } from '@/services/cards'; // Importamos la nueva función
+import { requestCardOtp, verifyCardOtp } from '@/services/cards';
 
 type ModalState = 'IDLE' | 'REQUESTING' | 'VERIFYING' | 'ERROR' | 'SHOWING';
 const PIN_VISIBILITY_DURATION = 10;
@@ -14,12 +14,10 @@ export function usePinVerification(cardId: string, isOpen: boolean, initialPin: 
   const [message, setMessage] = useState('');
   const [seconds, setSeconds] = useState(PIN_VISIBILITY_DURATION);
   
-  // Nuevo estado para guardar el PIN real recuperado de la API
   const [revealedPin, setRevealedPin] = useState(initialPin);
   
   const token = useAuthToken();
 
-  // 1. Efecto: Solicitar envío de OTP al abrir
   useEffect(() => {
     if (isOpen && cardId) {
       const sendOtp = async () => {
@@ -31,7 +29,7 @@ export function usePinVerification(cardId: string, isOpen: boolean, initialPin: 
 
         setStep('REQUESTING');
         setOtp('');
-        setRevealedPin(initialPin); // Resetear pin
+        setRevealedPin(initialPin);
         setMessage('Solicitando código de seguridad...');
         setSeconds(PIN_VISIBILITY_DURATION);
 
@@ -59,7 +57,7 @@ export function usePinVerification(cardId: string, isOpen: boolean, initialPin: 
     }
   }, [step, seconds, onClose]);
 
-  // 3. Validar OTP (Lógica Real)
+  // 3. Validar OTP
   const handleVerifyOtp = useCallback(async () => {
     if (!otp || !token) {
       setStep('ERROR');
@@ -71,11 +69,9 @@ export function usePinVerification(cardId: string, isOpen: boolean, initialPin: 
     setMessage('Verificando código...');
     
     try {
-        // LLAMADA AL SERVICIO REAL
         const sensitiveData = await verifyCardOtp(cardId, otp, token);
-        
-        // Si tiene éxito:
-        setRevealedPin(sensitiveData.pin); // Guardamos el PIN real
+      
+        setRevealedPin(sensitiveData.pin);
         setStep('SHOWING');
         setMessage(sensitiveData.message || 'Identidad confirmada.');
         
@@ -86,7 +82,7 @@ export function usePinVerification(cardId: string, isOpen: boolean, initialPin: 
   }, [otp, cardId, token]);
 
   const handleCopyPin = useCallback(() => {
-    navigator.clipboard.writeText(revealedPin); // Copiamos el PIN real
+    navigator.clipboard.writeText(revealedPin);
     setMessage('PIN copiado.');
   }, [revealedPin]);
 

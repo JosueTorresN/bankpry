@@ -31,7 +31,7 @@ export interface ApiError {
 export interface RegisterResponse {
     user_id: string; // El ID del nuevo usuario
     message: string;
-    // ... otros campos
+
 }
 
 export type MovementType = 'CREDITO' | 'DEBITO' | 'TODOS';

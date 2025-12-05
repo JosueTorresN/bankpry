@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 // Hooks y Tipos
-import { useCardDetails } from '@/lib/hooks/useCardDetails'; // Asegúrate de que la ruta coincida con donde guardaste el hook
+import { useCardDetails } from '@/lib/hooks/useCardDetails';
 import { CardMovement } from '@/lib/types/cards';
 
 // Componentes
@@ -42,14 +42,14 @@ export default function CardDetailPage() {
       // Filtro por Tipo (COMPRA / PAGO / TODOS)
       const matchesType = filters.filterType === 'TODOS' || m.type === filters.filterType;
       
-      // Filtro por Texto (Descripción)
+      // Filtro por Texto
       const matchesText = m.description.toLowerCase().includes(filters.searchText.toLowerCase());
 
       return matchesType && matchesText;
     });
   }, [movements, filters]);
 
-  // Handler para actualizar filtros (acepta actualizaciones parciales)
+  // Handler para actualizar filtros
   const handleFilterChange = (newFilters: Partial<typeof filters>) => {
     setFilters(prev => ({ ...prev, ...newFilters }));
   };
