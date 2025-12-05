@@ -1,11 +1,9 @@
-// app/(dashboard)/transfers/page.tsx (o donde esté tu archivo page.tsx)
 "use client";
 
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useAccounts } from '@/lib/hooks/useAccounts';
 import { TransferFormValues } from '@/lib/validations/transferSchema';
-// Importamos el nuevo servicio
 import { performInternalTransfer, performInterbankTransfer } from '@/services/transfers';
 
 import TransferTypeSwitcher from '@/components/transfers/TransferTypeSwitcher';
@@ -13,10 +11,9 @@ import TransferForm from '@/components/forms/transfers/TransferForm';
 import TransferConfirmationModal from '@/components/transfers/TransferConfirmationModal';
 import TransferReceipt from '@/components/transfers/TransferReceipt';
 import LoadingSpinner from '@/components/feedBack/loadingSpineer';
-import Alert from '@/components/alert/alert'; // Importar si deseas mostrar errores en pantalla
+import Alert from '@/components/alert/alert';
 import styles from './TransfersPage.module.css';
 
-// Helper para obtener token (igual que en los otros hooks)
 const useAuthToken = () => typeof window !== 'undefined' ? localStorage.getItem("TOKEN") : null;
 
 type PageState = 'FORM' | 'CONFIRMING' | 'RECEIPT';
@@ -32,7 +29,7 @@ export default function TransfersPage() {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [receiptData, setReceiptData] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null); // Estado para errores
+  const [error, setError] = useState<string | null>(null);
 
   const handleFormSubmit = (data: TransferFormValues) => {
     setError(null); // Limpiar errores previos
@@ -60,7 +57,7 @@ export default function TransfersPage() {
             // Caso: Transferencia a otros bancos
             result = await performInterbankTransfer(transferData, currencyCode, token);
         } else {
-            // Caso: Transferencia interna (PROPIAS)
+            // Caso: Transferencia entre propias cuentas
             result = await performInternalTransfer(transferData, currencyCode, token);
         }
         

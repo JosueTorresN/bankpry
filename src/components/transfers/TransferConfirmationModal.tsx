@@ -3,7 +3,6 @@ import Button from '@/components/button/button';
 import LoadingSpinner from '@/components/feedBack/loadingSpineer';
 import { TransferFormValues } from '@/lib/validations/transferSchema';
 import { formatCurrency } from '@/lib/data/accounts';
-import { MOCK_ACCOUNTS } from '@/lib/data/accounts';
 import { Account } from '@/lib/types/accounts';
 import styles from './Transfers.module.css';
 import { useTranslations } from 'next-intl';
