@@ -1,28 +1,49 @@
-// hooks/useAccounts.ts
+
 "use client";
 import { useState, useEffect } from 'react';
 import { Account } from '@/lib/types/accounts';
-import { MOCK_ACCOUNTS } from '@/lib/data/accounts';
+
+import { fetchAccounts } from '@/services/accounts'; 
+
+
+const useAuthToken = () => {
+
+    return localStorage.getItem("TOKEN");
+    
+};
 
 export function useAccounts() {
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const authToken = useAuthToken(); 
+
   useEffect(() => {
-    const fetchAccounts = async () => {
+    if (!authToken) {
+        setError('No se pudo obtener el token de autenticación.');
+        setLoading(false);
+        return;
+    }
+
+    const loadAccounts = async () => {
       try {
         setLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 800)); // Simula carga
-        setAccounts(MOCK_ACCOUNTS);
-      } catch (err) {
-        setError('No se pudieron cargar las cuentas.');
+ 
+        const fetchedAccounts = await fetchAccounts(authToken);
+
+        setAccounts(fetchedAccounts);
+        setError(null);
+
+      } catch (err: any) {
+        
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-    fetchAccounts();
-  }, []);
+    loadAccounts();
+  }, [authToken]); 
 
   return { accounts, loading, error };
 }

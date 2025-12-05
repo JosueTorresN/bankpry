@@ -18,7 +18,7 @@ export default function AccountDetailPage() {
   const t = useTranslations('AccountDetails');
 
   const { account, movements, loading, error } = useAccountDetails(accountId);
-  
+
 
   const [filters, setFilters] = useState({ searchText: '', filterType: 'TODOS' });
 
@@ -40,7 +40,7 @@ export default function AccountDetailPage() {
   
 
   const accountNotFoundMessage = t('not_found_error');
-  if (!account) return (
+  if (!account) return (
     <div className={styles.feedback_container}>
       <Alert message={accountNotFoundMessage} type='error'>
         {accountNotFoundMessage}

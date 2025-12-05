@@ -14,14 +14,15 @@ type Props = {
   isSubmitting: boolean;
   data: TransferFormValues;
   sourceAccount?: Account;
+  accounts: Account[];
 };
 
-export default function TransferConfirmationModal({ isOpen, onClose, onConfirm, isSubmitting, data, sourceAccount }: Props) {
+export default function TransferConfirmationModal({ isOpen, onClose, onConfirm, isSubmitting, data, sourceAccount, accounts }: Props) {
    const t = useTranslations('Transfers');
   if (!sourceAccount) return null;
 
   const targetAlias = data.transferType === 'PROPIAS' 
-    ? MOCK_ACCOUNTS.find(a => a.account_id === data.targetAccountId)?.alias 
+    ? accounts.find(a => a.id === data.targetAccountId)?.alias 
     : data.targetOwner;
 
   return (

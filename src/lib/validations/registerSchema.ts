@@ -2,8 +2,7 @@ import { z } from 'zod';
 
 export const registerSchema = z.object({
   idType: z.enum(['Nacional', 'DIMEX', 'Pasaporte'], {
-    // ❌ Error: required_error no es una propiedad válida aquí
-    // ✅ Solución: Usa 'message' en su lugar
+    // La validación utiliza los valores amigables al usuario (Nacional, DIMEX, Pasaporte)
     message: 'El tipo de identificación es obligatorio', 
   }),
   idNumber: z.string().min(1, 'El número de identificación es obligatorio')

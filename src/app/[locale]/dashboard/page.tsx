@@ -32,7 +32,7 @@ export default function DashboardPage() {
         aria-label={t('accounts_list_aria_label')}
       >
         {accounts.map((account) => (
-          <AccountCard key={account.account_id} account={account} />
+          <AccountCard key={account.id} account={account} />
         ))}
       </ul>
     );

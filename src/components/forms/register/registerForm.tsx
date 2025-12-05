@@ -8,6 +8,11 @@ import InputField from '@/components/forms/inputs/inputField';
 import IdTypeSelect from '@/components/select/IdTypeSelect';
 import styles from './RegisterForm.module.css';
 import { useTranslations } from 'next-intl';
+
+// --- NUEVAS IMPORTACIONES DE SERVICIOS ---
+import { registerUser, RegisterApiRequest, ID_TYPE_MAP } from '@/services/users';
+// ----------------------------------------
+
 type RegisterFormProps = {
   onRegisterSuccess: (data: RegisterFormValues) => void;
 };
@@ -15,6 +20,9 @@ type RegisterFormProps = {
 export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
   const t = useTranslations('Auth');
   const [showTerms, setShowTerms] = useState(false);
+  // Estado para manejar errores de la API
+  const [apiError, setApiError] = useState<string | null>(null);
+  
   const {
     register,
     handleSubmit,
@@ -27,8 +35,40 @@ export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
   const watchAcceptTerms = watch('acceptTerms');
 
   const onSubmit = async (data: RegisterFormValues) => {
-    await new Promise(resolve => setTimeout(resolve, 1500)); // Simula llamada a API
-    onRegisterSuccess(data);
+    setApiError(null); // Limpiar errores previos
+
+    // 1. Mapear datos del formulario a la estructura de la API
+    
+    // Asumiendo una división simple del nombre completo en nombre y apellido.
+    const fullNameParts = data.fullName.trim().split(/\s+/);
+    const firstName = fullNameParts.slice(0, -1).join(' ');
+    // El último segmento se considera el apellido. Si solo hay una palabra, se usa como apellido.
+    const lastName = fullNameParts.length > 1 ? fullNameParts[fullNameParts.length - 1] : data.fullName;
+
+    const apiData: RegisterApiRequest = {
+        // Mapea el tipo de identificación (ej. 'Nacional') al UUID de la API
+        tipo_identificacion: ID_TYPE_MAP[data.idType],
+        identificacion: data.idNumber,
+        nombre: firstName,
+        apellido: lastName,
+        correo: data.email,
+        telefono: data.phone,
+        usuario: data.username,
+        password: data.password,
+        fecha_nacimiento: data.birthDate, // Ya debería estar en formato YYYY-MM-DD
+    };
+
+    try {
+      // 2. Llamar a la API de registro
+      await registerUser(apiData);
+      
+      // 3. Manejar éxito
+      onRegisterSuccess(data);
+
+    } catch (error: any) {
+      // 4. Manejar error de la API y mostrarlo
+      setApiError(error.message);
+    }
   };
 
   return (
@@ -36,6 +76,9 @@ export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
       <form className={styles.register_form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <h2 className={styles.form_title}>{t('register_form_title')}</h2>
         
+        {/* Mostrar error de API si existe */}
+        {apiError && <p className={styles.error_text_centered}>{apiError}</p>}
+
         <IdTypeSelect register={register} error={errors.idType?.message} />
         
         <InputField id="idNumber" label={t('id_number_label')} registration={register('idNumber')} error={errors.idNumber?.message} />

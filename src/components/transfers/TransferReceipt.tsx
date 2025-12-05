@@ -1,17 +1,19 @@
 import { TransferFormValues } from '@/lib/validations/transferSchema';
 import { formatCurrency } from '@/lib/data/accounts';
-import { MOCK_ACCOUNTS } from '@/lib/data/accounts';
 import Button from '@/components/button/button';
 import styles from './Transfers.module.css';
 import { useTranslations } from 'next-intl';
+import { Account, Currency } from '@/props/account';
 
 type Props = {
-  receipt: { transactionId: string } & TransferFormValues;
+receipt: { transactionId: string, currency: Currency } & TransferFormValues; 
   onNewTransfer: () => void;
+  accounts: Account[];
 };
 
-export default function TransferReceipt({ receipt, onNewTransfer }: Props) {
+export default function TransferReceipt({ receipt, onNewTransfer, accounts }: Props) {
   const t = useTranslations('Transfers');
+  const sourceCurrency = accounts.find(a => a.id === receipt.sourceAccountId)?.currency || 'CRC';
   const handleDownload = () => {
     const receiptText = `
       ================================
@@ -28,7 +30,7 @@ export default function TransferReceipt({ receipt, onNewTransfer }: Props) {
       ${t('receipt_owner_label')}: ${receipt.targetOwner || t('receipt_default_owner')}
       
       ${t('receipt_details_title')}
-      ${t('receipt_amount_label')}: ${formatCurrency(receipt.amount, MOCK_ACCOUNTS.find(a => a.account_id === receipt.sourceAccountId)?.currency || 'CRC')}
+      ${t('receipt_amount_label')}: ${formatCurrency(receipt.amount, receipt.currency || 'CRC')}
       ${t('receipt_description_label')} || 'N/A'}
       ================================
     `;
@@ -49,7 +51,7 @@ export default function TransferReceipt({ receipt, onNewTransfer }: Props) {
       <div className={styles.receipt_icon}>✅</div>
       <h2 className={styles.receipt_title}>{t('receipt_success_title')}</h2>
       <p className={styles.receipt_subtitle}>
-        {t('receipt_success_subtitle')} {formatCurrency(receipt.amount, MOCK_ACCOUNTS.find(a => a.account_id === receipt.sourceAccountId)?.currency || 'CRC')} {t('receipt_success_subtitle2')} {receipt.targetOwner || `${t('receipt_default_target')}`}.
+        {t('receipt_success_subtitle')} {formatCurrency(receipt.amount, receipt.currency || 'CRC')} {t('receipt_success_subtitle2')} {receipt.targetOwner || `${t('receipt_default_target')}`}.
       </p>
       
       <div className={styles.receipt_details}>

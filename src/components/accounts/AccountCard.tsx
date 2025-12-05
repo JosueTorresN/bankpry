@@ -14,7 +14,7 @@ type AccountCardProps = {
 export default function AccountCard({ account }: AccountCardProps) {
   const t = useTranslations('AccountCard');
   const router = useRouter();
-  const handleViewDetails = () => router.push(`/dashboard/${account.account_id}`);
+  const handleViewDetails = () => router.push(`/dashboard/${account.id}`);
   
   const accountNumberDescription = t('account_number_description', {type: account.type, last_four: account.account_id.slice(-4)});
 
