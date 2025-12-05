@@ -5,16 +5,16 @@ import { ApiError } from '../types/api';
 import { MovementApiResponse, ApiMovementData } from '@/types/api';
 
 const API_BASE_URL = 'https://bank-crap-servi.onrender.com/api/v1';
-const API_KEY = 'BanCrapTEC2025SecretKey!'; // Idealmente, mueve esto a process.env.NEXT_PUBLIC_API_KEY
+const API_KEY = 'BanCrapTEC2025SecretKey!'; 
 
-// Mapa de UUIDs a Tipos locales (Ajustar según documentación real del backend)
+
 const movementTypeMap: Record<string, MovementType> = {
     '60000000-0000-0000-0000-000000000002': 'DEBITO', 
-    // AGREGAR AQUÍ EL UUID DE DÉBITO CUANDO LO TENGAS:
+
     '60000000-0000-0000-0000-000000000001': 'CREDITO'
 };
 
-// Reutilizamos el mapa de monedas si es consistente con accounts.ts
+
 const currencyMap: Record<string, Currency> = {
     '50000000-0000-0000-0000-000000000002': 'CRC',
     '30000000-0000-0000-0000-000000000002': 'USD'
@@ -24,26 +24,20 @@ const currencyMap: Record<string, Currency> = {
  * Transforma el movimiento de la API al modelo local de la UI.
  */
 const mapApiMovementToLocal = (apiMovement: ApiMovementData): Movement => {
-    const type = movementTypeMap[apiMovement.tipo] || 'CREDITO'; // Fallback por seguridad
+    const type = movementTypeMap[apiMovement.tipo] || 'CREDITO';
     const currency = currencyMap[apiMovement.moneda] || 'CRC';
     
-    // Convertir monto a número. 
-    // IMPORTANTE: Si es DEBITO, la UI suele esperarlo negativo o manejarlo con el tipo.
-    // Tu componente MovementList usa Math.abs(), así que el signo aquí es informativo.
     let amount = parseFloat(apiMovement.monto);
-    
-    // Opcional: Si quieres guardar el valor negativo para débitos explícitamente:
-    // if (type === 'DEBITO') amount = -Math.abs(amount);
+
 
     return {
         account_id: apiMovement.cuenta_id,
         id: apiMovement.id,
-        date: apiMovement.fecha, // Se mantiene formato ISO
+        date: apiMovement.fecha,
         description: apiMovement.descripcion,
         amount: amount,
         currency: currency,
         type: type,
-        // Agrega otros campos si tu interfaz Movement local los requiere
     };
 };
 
@@ -65,7 +59,6 @@ export async function fetchAccountMovements(accountId: string, token: string): P
             validateStatus: (status) => status >= 200 && status < 300,
         });
 
-        // Mapeamos el array de 'data.data'
         return response.data.data.data.map(mapApiMovementToLocal);
 
     } catch (error) {

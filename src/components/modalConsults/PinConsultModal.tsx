@@ -18,7 +18,7 @@ export default function PinConsultModal({ card, isOpen, onClose }: Props) {
   const { 
     step, message, otp, setOtp, 
     seconds, handleVerifyOtp, handleCopyPin,
-    revealedPin // <--- Importamos el PIN real
+    revealedPin
   } = usePinVerification(card.id, isOpen, card.pin, onClose);
 
   // Creamos una versión de la tarjeta con el PIN real para mostrarla
@@ -53,7 +53,7 @@ export default function PinConsultModal({ card, isOpen, onClose }: Props) {
       
       {step === 'SHOWING' && (
         <PinDisplayStep 
-          card={cardWithRealPin} // <--- Pasamos la tarjeta con el dato real
+          card={cardWithRealPin}
           seconds={seconds} 
           onCopy={handleCopyPin} 
           onClose={onClose} 

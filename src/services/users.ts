@@ -2,7 +2,7 @@
 
 import axios, { AxiosError } from 'axios';
 import { ApiError } from '../types/api'; 
-// Importamos los tipos de valores de nuestro schema para asegurar el mapeo correcto
+
 import { RegisterFormValues } from '@/lib/validations/registerSchema'//'../validations/registerSchema'; 
 
 // Reutilizamos las constantes de configuración
@@ -36,14 +36,13 @@ interface RegisterApiResponse {
 }
 
 /**
- * Mapeo de los valores del formulario (registerSchema.ts) a los UUIDs de la API.
- * (Debes verificar y ajustar estos UUIDs con la documentación real de tu API)
+ * Mapeo de los valores del formulario a los UUIDs de la API.
  */
 export const ID_TYPE_MAP: Record<RegisterFormValues['idType'], string> = {
-    // El ejemplo de la API usaba este UUID para la identificación:
+
     'Nacional': '20000000-0000-0000-0000-000000000001', 
-    'DIMEX': '20000000-0000-0000-0000-000000000002', // ID Asumido para DIMEX
-    'Pasaporte': '20000000-0000-0000-0000-000000000003', // ID Asumido para Pasaporte
+    'DIMEX': '20000000-0000-0000-0000-000000000002',
+    'Pasaporte': '20000000-0000-0000-0000-000000000003',
 };
 
 

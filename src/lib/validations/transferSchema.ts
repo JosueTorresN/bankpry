@@ -1,9 +1,7 @@
 // lib/validations/transferSchema.ts
 import { z } from 'zod';
 import { formatCurrency } from '@/lib/data/accounts';
-import { Account } from '@/lib/types/accounts'; // Asegúrate de importar tu tipo Account real
-
-// NOTA: Hemos eliminado la importación de MOCK_ACCOUNTS
+import { Account } from '@/lib/types/accounts';
 
 export const createTransferSchema = (accounts: Account[]) => {
   return z.object({
@@ -15,8 +13,6 @@ export const createTransferSchema = (accounts: Account[]) => {
     targetOwner: z.string().optional(),
   })
   .superRefine((data, ctx) => {
-    // AQUI ESTÁ LA CLAVE: Buscamos en el array 'accounts' que pasamos como argumento
-    // Asegúrate si tu propiedad es 'id' o 'account_id' según tu interfaz Account
     const sourceAccount = accounts.find(a => a.id === data.sourceAccountId || a.account_id === data.sourceAccountId);
     
     if (!sourceAccount) return;

@@ -1,4 +1,4 @@
-import InputField from '@/components/forms/inputs/inputField'; // Asumiendo ruta
+import InputField from '@/components/forms/inputs/inputField';
 import Button from '@/components/button/button';
 import LoadingSpinner from '@/components/feedBack/loadingSpineer';
 import styles from './PinConsultModal.module.css';
@@ -14,7 +14,6 @@ export default function OtpInputStep({ otp, setOtp, onVerify, isLoading }: Props
   const t = useTranslations('CardDetails'); 
   return (
     <div className={styles.step_container}>
-      {/* Usamos un InputField reutilizable si lo tenemos, o un input normal */}
       <input
         type="text"
         id="otp"

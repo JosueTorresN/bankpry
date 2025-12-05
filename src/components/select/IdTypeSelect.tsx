@@ -3,16 +3,14 @@ import { useTranslations } from 'next-intl';
 import { UseFormRegister } from 'react-hook-form';
 import { RegisterFormValues } from '@/lib/validations/registerSchema';
 import Alert from '../alert/alert';
-import styles from './IdTypeSelect.module.css'; // Importamos el módulo CSS
+import styles from './IdTypeSelect.module.css';
 
 type IdTypeSelectProps = {
   register: UseFormRegister<RegisterFormValues>;
   error?: string;
 };
 
-// Usamos la sintaxis de función estándar (recomendada sobre React.FC)
 export default function IdTypeSelect({ register, error }: IdTypeSelectProps) {
-  // Combinamos clases condicionalmente para el estado de error
   const t = useTranslations('Auth');
   const selectClassName = `${styles.select_element} ${error ? styles.select_error : ''}`;
 
@@ -25,7 +23,7 @@ export default function IdTypeSelect({ register, error }: IdTypeSelectProps) {
         id="idType"
         {...register('idType')}
         className={selectClassName}
-        defaultValue="" // Es buena práctica tener un valor por defecto
+        defaultValue=""
       >
         <option value="" disabled>{t('select_option_default')}</option>
         <option value="Nacional">{t('id_option_national')}</option>

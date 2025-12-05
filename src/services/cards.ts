@@ -1,15 +1,15 @@
 // lib/services/cards.ts
 import axios, { AxiosError } from 'axios';
 import { CreditCard, CardType, Currency, CardsApiResponse, ApiCardData, CardMovementType, ApiCardMovementData, CardMovement, CardMovementsApiResponse } from '@/lib/types/cards';
-import { ApiError } from '@/types/api'; // Asumo que tienes este tipo común
+import { ApiError } from '@/types/api';
 
 const API_BASE_URL = 'https://bank-crap-servi.onrender.com/api/v1';
 const API_KEY = 'BanCrapTEC2025SecretKey!'; 
 
-// Mapas de UUIDs (Ajustables según documentación del backend)
+// Mapas de UUIDs
 const cardTypeMap: Record<string, CardType> = {
     '80000000-0000-0000-0000-000000000001': 'Gold',
-    '80000000-0000-0000-0000-000000000002': 'Platinum', // El que sale en tu ejemplo
+    '80000000-0000-0000-0000-000000000002': 'Platinum', 
     '80000000-0000-0000-0000-000000000003': 'Black',
 };
 
@@ -20,8 +20,8 @@ const currencyMap: Record<string, Currency> = {
 
 // UUIDs para movimientos (COMPRA vs PAGO)
 const movementTypeMap: Record<string, CardMovementType> = {
-    '90000000-0000-0000-0000-000000000001': 'COMPRA', // <--- REEMPLAZAR CON UUID REAL
-    '90000000-0000-0000-0000-000000000002': 'PAGO',   // <--- REEMPLAZAR CON UUID REAL
+    '90000000-0000-0000-0000-000000000001': 'COMPRA',
+    '90000000-0000-0000-0000-000000000002': 'PAGO',  
 };
 
 export interface OtpResponse {
@@ -43,12 +43,12 @@ const mapApiCardToLocal = (apiCard: ApiCardData): CreditCard => {
     type: cardTypeMap[apiCard.tipo] || 'Gold', // Fallback
     cardNumber: apiCard.numero_enmascarado, // Usamos la enmascarada directamente
     exp: apiCard.fecha_expiracion,
-    holder: 'USUARIO ACTUAL', // La API no devuelve el nombre, usar placeholder o info del user context
+    holder: 'USUARIO ACTUAL',
     currency: currencyMap[apiCard.moneda] || 'CRC',
     limit: parseFloat(apiCard.limite_credito),
     currentBalance: parseFloat(apiCard.saldo_actual),
-    pin: '****', // Dato sensible no retornado por API lista
-    cvv: '***',  // Dato sensible no retornado por API lista
+    pin: '****', 
+    cvv: '***',  
   };
 };
 
@@ -92,18 +92,14 @@ export async function fetchCards(token: string): Promise<CreditCard[]> {
 
 // 1. Obtener una tarjeta específica por ID
 export async function fetchCardById(cardId: string, token: string): Promise<CreditCard> {
-    // Si la API no tiene endpoint individual, podríamos llamar a fetchCards y filtrar, 
-    // pero asumiremos que existe /cards/{id}
     const endpoint = `${API_BASE_URL}/cards/${cardId}`; 
     try {
-        const response = await axios.get<{ data: ApiCardData }>(endpoint, { // Ajustar estructura si varía
+        const response = await axios.get<{ data: ApiCardData }>(endpoint, {
             headers: {
                 'x-api-key': API_KEY,
                 'Authorization': `Bearer ${token}`,
             }
         });
-        // Nota: A veces la API devuelve array en data, a veces objeto. Ajustar según respuesta real.
-        // Asumiendo que devuelve el objeto directo o dentro de data.data:
         return mapApiCardToLocal(response.data.data); 
     } catch (error) {
         throw new Error('Error al cargar la tarjeta.');
@@ -134,7 +130,6 @@ export async function requestCardOtp(cardId: string, token: string): Promise<str
     const endpoint = `${API_BASE_URL}/cards/${cardId}/otp`;
     
     try {
-        // Es un POST, aunque no lleve body, axios espera un segundo argumento (body)
         const response = await axios.post<{ data: OtpResponse }>(endpoint, {}, {
             headers: {
                 'x-api-key': API_KEY,
@@ -161,9 +156,6 @@ export async function verifyCardOtp(cardId: string, otpCode: string, token: stri
     const endpoint = `${API_BASE_URL}/cards/${cardId}/view-details`;
     
     try {
-        // Enviamos el OTP en el body. 
-        // Nota: Asumo que el backend espera { "code": "..." } o { "otp": "..." }.
-        // Usaré "code" que es estándar, si falla prueba con "otp".
         const body = { otp: otpCode }; 
 
         const response = await axios.post<{ data: SensitiveDataResponse }>(endpoint, body, {

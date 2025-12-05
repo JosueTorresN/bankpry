@@ -40,7 +40,7 @@ export default function TransferForm({ userAccounts, initialType, onTypeChange, 
   const handleValidateThirdParty = async () => {
       // Limpiar estados previos
       setValidationError(null);
-      setValue('targetOwner', undefined); // Resetear dueño
+      setValue('targetOwner', undefined);
       
 
       const isFieldValid = await trigger('targetAccountId');

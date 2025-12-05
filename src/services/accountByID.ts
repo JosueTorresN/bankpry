@@ -10,15 +10,11 @@ const API_KEY = 'BanCrapTEC2025SecretKey!';
 
 
 const currencyMap: Record<string, Currency> = {
-    // Basado en el ejemplo, este UUID se mapea a Colones (CRC)
     '30000000-0000-0000-0000-000000000002': 'CRC', 
-    // Añadir más mapeos si es necesario (e.g., para USD)
 };
 
 const accountTypeMap: Record<string, AccountType> = {
-    // Basado en el ejemplo, este UUID se mapea a Corriente
     '50000000-0000-0000-0000-000000000001': 'Corriente', 
-    // Añadir más mapeos si es necesario (e.g., para Ahorro)
 };
 
 /**
@@ -29,7 +25,7 @@ const accountTypeMap: Record<string, AccountType> = {
 const mapApiAccountToLocal = (apiAccount: ApiAccountData): Account => {
   return {
     id: apiAccount.id,
-    account_id: apiAccount.iban, // Usamos IBAN como account_id (según tu tipo local)
+    account_id: apiAccount.iban, // Usamos IBAN como account_id
     alias: apiAccount.alias,
     type: accountTypeMap[apiAccount.tipocuenta] || 'Corriente', 
     currency: currencyMap[apiAccount.moneda] || 'CRC', 
@@ -59,7 +55,6 @@ export async function fetchAccountById(accountId: string, token: string): Promis
       validateStatus: (status) => status >= 200 && status < 300,
     });
 
-    // Mapea el objeto 'data' de la respuesta de la API al tipo Account local
     return mapApiAccountToLocal(response.data.data);
     
   } catch (error) {

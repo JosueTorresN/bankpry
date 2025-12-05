@@ -2,13 +2,10 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Account, Movement } from '@/lib/types/accounts'; 
-// import { MOCK_MOVEMENTS } from '@/lib/data/accounts'; // YA NO LO NECESITAMOS
 import { fetchAccountById } from '@/services/accountByID'; 
-// Asegúrate de importar el nuevo servicio que creamos en el paso anterior
 import { fetchAccountMovements } from '@/services/movements'; 
 
 const useAuthToken = () => {
-  // Nota: Idealmente esto vendría de un contexto de autenticación o hook de sesión más robusto
   return localStorage.getItem("TOKEN");
 };
 
@@ -38,8 +35,6 @@ export function useAccountDetails(accountId: string | undefined) {
       setError(null);
 
       try {
-        // BUENA PRÁCTICA: Promise.all permite hacer ambas peticiones en paralelo.
-        // Esto hace que la carga sea más rápida (el tiempo total es el de la petición más lenta, no la suma de ambas).
         const [fetchedAccount, fetchedMovements] = await Promise.all([
             fetchAccountById(accountId, authToken),
             fetchAccountMovements(accountId, authToken)
@@ -49,7 +44,6 @@ export function useAccountDetails(accountId: string | undefined) {
           throw new Error('La cuenta no fue encontrada.');
         }
 
-        // Ordenamos los movimientos por fecha (descendente) por seguridad visual
         const sortedMovements = fetchedMovements.sort((a, b) => 
             new Date(b.date).getTime() - new Date(a.date).getTime()
         );
@@ -58,7 +52,6 @@ export function useAccountDetails(accountId: string | undefined) {
         setMovements(sortedMovements);
         
       } catch (err: any) {
-        // Capturamos cualquier error de cualquiera de las dos peticiones
         console.error("Error fetching details:", err);
         setError(err.message || 'Error al cargar los detalles de la cuenta.');
         setAccount(null);

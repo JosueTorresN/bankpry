@@ -1,9 +1,9 @@
 
 
 import axios, { AxiosError } from 'axios';
-import { LoginRequest, LoginResponse, ApiError } from '../types/api'; // Asegúrate de que las rutas sean correctas
+import { LoginRequest, LoginResponse, ApiError } from '../types/api';
 
-//  variables con el 
+
 const API_BASE_URL = 'https://bank-crap-servi.onrender.com/api/v1';
 const API_KEY = 'BanCrapTEC2025SecretKey!';
 
@@ -41,17 +41,17 @@ export async function login(data: LoginRequest): Promise<LoginResponse> {
       // Manejo de errores específicos de Axios
       const axiosError = error as AxiosError<ApiError>;
       if (axiosError.response && axiosError.response.data) {
-        // El servidor respondió con un código de error (p.ej., 401 Unauthorized)
+        // El servidor respondió con un código de error
         throw new Error(
           axiosError.response.data.message ||
             `Error de API: ${axiosError.response.status}`,
         );
       } else if (axiosError.request) {
-        // La solicitud fue hecha pero no se recibió respuesta (p.ej., error de red)
+        // La solicitud fue hecha pero no se recibió respuesta
         throw new Error('Error de red o el servidor no respondió.');
       }
     }
-    // Otros errores (p.ej., error de la función)
+    // Otros errores
     throw new Error('Ha ocurrido un error inesperado al iniciar sesión.');
   }
 }

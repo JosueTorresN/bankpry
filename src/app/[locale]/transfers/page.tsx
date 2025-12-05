@@ -32,7 +32,7 @@ export default function TransfersPage() {
   const [error, setError] = useState<string | null>(null);
 
   const handleFormSubmit = (data: TransferFormValues) => {
-    setError(null); // Limpiar errores previos
+    setError(null);
     setTransferData(data);
     setPageState('CONFIRMING');
   };
@@ -52,20 +52,16 @@ export default function TransfersPage() {
 
         let result;
         console.log("Iniciando transferencia con datos:", transferData.transferType , "y moneda:", currencyCode);
-        // LÓGICA DE SELECCIÓN DE SERVICIO
         if (transferType === 'TERCEROS') {
-            // Caso: Transferencia a otros bancos
             result = await performInterbankTransfer(transferData, currencyCode, token);
         } else {
-            // Caso: Transferencia entre propias cuentas
             result = await performInternalTransfer(transferData, currencyCode, token);
         }
         
-        // Crear recibo (funciona igual para ambas)
         const finalReceipt = {
             transactionId: result.receipt_number,
             date: new Date().toISOString(),
-            currency: currencyCode, // Agregado en el paso anterior
+            currency: currencyCode,
             ...transferData
         };
 

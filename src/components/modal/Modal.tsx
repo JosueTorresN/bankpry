@@ -12,7 +12,7 @@ type ModalProps = {
 export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Cierra el modal al presionar la tecla 'Escape'
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
@@ -21,7 +21,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Atrapa el foco dentro del modal (Focus Trapping)
+  // Atrapa el foco dentro del modal
   useEffect(() => {
     if (isOpen && modalRef.current) {
       const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
